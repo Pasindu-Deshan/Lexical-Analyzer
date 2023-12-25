@@ -1,0 +1,3650 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    EPSILON
+    ISA
+    TYPE
+
+Grammar
+
+Rule 0     S' -> prog
+Rule 1     prog -> buildClassOrFunc
+Rule 2     buildClassOrFunc -> classDecl
+Rule 3     buildClassOrFunc -> funcDef
+Rule 4     classDecl -> CLASS ID LEFTBRACE visibilityMemberDeclArr RIGHTBRACE
+Rule 5     visibilityMemberDeclArr -> visibilityMemberDecl visibilityMemberDeclArr
+Rule 6     visibilityMemberDeclArr -> <empty>
+Rule 7     visibilityMemberDecl -> visibility memberDecl
+Rule 8     visibility -> PUBLIC
+Rule 9     visibility -> PRIVATE
+Rule 10    visibility -> <empty>
+Rule 11    memberDecl -> memberFuncDecl
+Rule 12    memberDecl -> memberVarDecl
+Rule 13    memberFuncDecl -> FUNCTION ID COLON LEFTPARENTHESES fParams RIGHTPARENTHESES ARROW returnType SEMICOLON
+Rule 14    memberFuncDecl -> CONSTRUCTOR COLON LEFTPARENTHESES fParams RIGHTPARENTHESES SEMICOLON
+Rule 15    memberVarDecl -> ATTRIBUTE ID COLON type arraySizeArr SEMICOLON
+Rule 16    arraySizeArr -> arraySize arraySizeArr
+Rule 17    arraySizeArr -> <empty>
+Rule 18    funcDef -> funcHead funcBody
+Rule 19    funcHead -> FUNCTION idsrArr ID LEFTPARENTHESES fParams RIGHTPARENTHESES ARROW returnType
+Rule 20    funcHead -> FUNCTION ID SR CONSTRUCTOR LEFTPARENTHESES fParams RIGHTPARENTHESES
+Rule 21    idsrArr -> ID SR idsrArr
+Rule 22    idsrArr -> <empty>
+Rule 23    funcBody -> LEFTBRACKET localVarDeclOrStmtArr RIGHTBRACKET
+Rule 24    localVarDeclOrStmtArr -> localVarDeclOrStmt localVarDeclOrStmtArr
+Rule 25    localVarDeclOrStmtArr -> <empty>
+Rule 26    localVarDeclOrStmt -> localVarDecl
+Rule 27    localVarDeclOrStmt -> statement
+Rule 28    localVarDecl -> LOCALVAR ID COLON type arraySizeArr SEMICOLON
+Rule 29    localVarDecl -> LOCALVAR ID COLON type LEFTPARENTHESES aParams RIGHTPARENTHESES SEMICOLON
+Rule 30    statement -> assignStat SEMICOLON
+Rule 31    statement -> IF LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN statBlock ELSE statBlock SEMICOLON
+Rule 32    statement -> WHILE LEFTPARENTHESES relExpr RIGHTPARENTHESES statBlock SEMICOLON
+Rule 33    statement -> READ LEFTPARENTHESES variable RIGHTPARENTHESES SEMICOLON
+Rule 34    statement -> WRITE LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON
+Rule 35    statement -> RETURN LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON
+Rule 36    statement -> functionCall SEMICOLON
+Rule 37    assignStat -> variable ASSIGN expr
+Rule 38    statBlock -> LEFTBRACE statementArr RIGHTBRACE
+Rule 39    statBlock -> statement
+Rule 40    statementArr -> statement statementArr
+Rule 41    statementArr -> <empty>
+Rule 42    expr -> arithExpr
+Rule 43    expr -> relExpr
+Rule 44    relExpr -> arithExpr relOp arithExpr
+Rule 45    arithExpr -> term arithExprtail
+Rule 46    arithExprtail -> addOp term arithExprtail
+Rule 47    arithExprtail -> <empty>
+Rule 48    term -> factor termTail
+Rule 49    termTail -> multOp factor termTail
+Rule 50    termTail -> <empty>
+Rule 51    factor -> variable
+Rule 52    factor -> functionCall
+Rule 53    factor -> INTLIT
+Rule 54    factor -> FLOATLIT
+Rule 55    factor -> LEFTPARENTHESES arithExpr RIGHTPARENTHESES
+Rule 56    factor -> NOT factor
+Rule 57    factor -> sign factor
+Rule 58    variable -> idnestArr ID indiceArr
+Rule 59    idnestArr -> idnest indiceArr
+Rule 60    idnestArr -> <empty>
+Rule 61    indiceArr -> indice indiceArr
+Rule 62    indiceArr -> <empty>
+Rule 63    functionCall -> idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+Rule 64    indice -> LEFTBRACE arithExpr RIGHTBRACE
+Rule 65    returnType -> type
+Rule 66    returnType -> VOID
+Rule 67    fParams -> ID COLON type arraySizeArr fParamsTailArr
+Rule 68    fParams -> <empty>
+Rule 69    fParamsTailArr -> fParamsTail fParamsTailArr
+Rule 70    fParamsTailArr -> <empty>
+Rule 71    aParams -> expr aParamsTailArr
+Rule 72    aParams -> <empty>
+Rule 73    aParamsTailArr -> expr aParamsTailArr
+Rule 74    aParamsTailArr -> <empty>
+Rule 75    relOp -> EQ
+Rule 76    relOp -> NEQ
+Rule 77    relOp -> LT
+Rule 78    relOp -> GT
+Rule 79    relOp -> LEQ
+Rule 80    relOp -> GEQ
+Rule 81    addOp -> ADD
+Rule 82    addOp -> SUB
+Rule 83    addOp -> OR
+Rule 84    multOp -> MUL
+Rule 85    multOp -> DIV
+Rule 86    multOp -> AND
+Rule 87    type -> INTEGER
+Rule 88    type -> FLOAT
+Rule 89    type -> ID
+Rule 90    arraySize -> LEFTBRACE INTLIT RIGHTBRACE
+Rule 91    arraySize -> LEFTBRACE RIGHTBRACE
+Rule 92    sign -> ADD
+Rule 93    sign -> SUB
+Rule 94    idnest -> ID idnestTail
+Rule 95    idnestTail -> <empty>
+Rule 96    idnestTail -> LEFTBRACE arithExpr RIGHTBRACE idnestTail
+Rule 97    idnestTail -> LEFTPARENTHESES aParams RIGHTPARENTHESES idnestTail
+Rule 98    idnestTail -> DOT
+Rule 99    fParamsTail -> COMMA ID COLON type arraySizeArr fParamsTail
+Rule 100   fParamsTail -> <empty>
+Rule 101   empty -> <empty>
+
+Terminals, with rules where they appear
+
+ADD                  : 81 92
+AND                  : 86
+ARROW                : 13 19
+ASSIGN               : 37
+ATTRIBUTE            : 15
+CLASS                : 4
+COLON                : 13 14 15 28 29 67 99
+COMMA                : 99
+CONSTRUCTOR          : 14 20
+DIV                  : 85
+DOT                  : 98
+ELSE                 : 31
+EPSILON              : 
+EQ                   : 75
+FLOAT                : 88
+FLOATLIT             : 54
+FUNCTION             : 13 19 20
+GEQ                  : 80
+GT                   : 78
+ID                   : 4 13 15 19 20 21 28 29 58 63 67 89 94 99
+IF                   : 31
+INTEGER              : 87
+INTLIT               : 53 90
+ISA                  : 
+LEFTBRACE            : 4 38 64 90 91 96
+LEFTBRACKET          : 23
+LEFTPARENTHESES      : 13 14 19 20 29 31 32 33 34 35 55 63 97
+LEQ                  : 79
+LOCALVAR             : 28 29
+LT                   : 77
+MUL                  : 84
+NEQ                  : 76
+NOT                  : 56
+OR                   : 83
+PRIVATE              : 9
+PUBLIC               : 8
+READ                 : 33
+RETURN               : 35
+RIGHTBRACE           : 4 38 64 90 91 96
+RIGHTBRACKET         : 23
+RIGHTPARENTHESES     : 13 14 19 20 29 31 32 33 34 35 55 63 97
+SEMICOLON            : 13 14 15 28 29 30 31 32 33 34 35 36
+SR                   : 20 21
+SUB                  : 82 93
+THEN                 : 31
+TYPE                 : 
+VOID                 : 66
+WHILE                : 32
+WRITE                : 34
+error                : 
+
+Nonterminals, with rules where they appear
+
+aParams              : 29 63 97
+aParamsTailArr       : 71 73
+addOp                : 46
+arithExpr            : 42 44 44 55 64 96
+arithExprtail        : 45 46
+arraySize            : 16
+arraySizeArr         : 15 16 28 67 99
+assignStat           : 30
+buildClassOrFunc     : 1
+classDecl            : 2
+empty                : 
+expr                 : 34 35 37 71 73
+fParams              : 13 14 19 20
+fParamsTail          : 69 99
+fParamsTailArr       : 67 69
+factor               : 48 49 56 57
+funcBody             : 18
+funcDef              : 3
+funcHead             : 18
+functionCall         : 36 52
+idnest               : 59
+idnestArr            : 58 63
+idnestTail           : 94 96 97
+idsrArr              : 19 21
+indice               : 61
+indiceArr            : 58 59 61
+localVarDecl         : 26
+localVarDeclOrStmt   : 24
+localVarDeclOrStmtArr : 23 24
+memberDecl           : 7
+memberFuncDecl       : 11
+memberVarDecl        : 12
+multOp               : 49
+prog                 : 0
+relExpr              : 31 32 43
+relOp                : 44
+returnType           : 13 19
+sign                 : 57
+statBlock            : 31 31 32
+statement            : 27 39 40
+statementArr         : 38 40
+term                 : 45 46
+termTail             : 48 49
+type                 : 15 28 29 65 67 99
+variable             : 33 37 51
+visibility           : 7
+visibilityMemberDecl : 5
+visibilityMemberDeclArr : 4 5
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . prog
+    (1) prog -> . buildClassOrFunc
+    (2) buildClassOrFunc -> . classDecl
+    (3) buildClassOrFunc -> . funcDef
+    (4) classDecl -> . CLASS ID LEFTBRACE visibilityMemberDeclArr RIGHTBRACE
+    (18) funcDef -> . funcHead funcBody
+    (19) funcHead -> . FUNCTION idsrArr ID LEFTPARENTHESES fParams RIGHTPARENTHESES ARROW returnType
+    (20) funcHead -> . FUNCTION ID SR CONSTRUCTOR LEFTPARENTHESES fParams RIGHTPARENTHESES
+
+    CLASS           shift and go to state 5
+    FUNCTION        shift and go to state 7
+
+    prog                           shift and go to state 1
+    buildClassOrFunc               shift and go to state 2
+    classDecl                      shift and go to state 3
+    funcDef                        shift and go to state 4
+    funcHead                       shift and go to state 6
+
+state 1
+
+    (0) S' -> prog .
+
+
+
+state 2
+
+    (1) prog -> buildClassOrFunc .
+
+    $end            reduce using rule 1 (prog -> buildClassOrFunc .)
+
+
+state 3
+
+    (2) buildClassOrFunc -> classDecl .
+
+    $end            reduce using rule 2 (buildClassOrFunc -> classDecl .)
+
+
+state 4
+
+    (3) buildClassOrFunc -> funcDef .
+
+    $end            reduce using rule 3 (buildClassOrFunc -> funcDef .)
+
+
+state 5
+
+    (4) classDecl -> CLASS . ID LEFTBRACE visibilityMemberDeclArr RIGHTBRACE
+
+    ID              shift and go to state 8
+
+
+state 6
+
+    (18) funcDef -> funcHead . funcBody
+    (23) funcBody -> . LEFTBRACKET localVarDeclOrStmtArr RIGHTBRACKET
+
+    LEFTBRACKET     shift and go to state 10
+
+    funcBody                       shift and go to state 9
+
+state 7
+
+    (19) funcHead -> FUNCTION . idsrArr ID LEFTPARENTHESES fParams RIGHTPARENTHESES ARROW returnType
+    (20) funcHead -> FUNCTION . ID SR CONSTRUCTOR LEFTPARENTHESES fParams RIGHTPARENTHESES
+    (21) idsrArr -> . ID SR idsrArr
+    (22) idsrArr -> .
+
+  ! shift/reduce conflict for ID resolved as shift
+    ID              shift and go to state 12
+
+  ! ID              [ reduce using rule 22 (idsrArr -> .) ]
+
+    idsrArr                        shift and go to state 11
+
+state 8
+
+    (4) classDecl -> CLASS ID . LEFTBRACE visibilityMemberDeclArr RIGHTBRACE
+
+    LEFTBRACE       shift and go to state 13
+
+
+state 9
+
+    (18) funcDef -> funcHead funcBody .
+
+    $end            reduce using rule 18 (funcDef -> funcHead funcBody .)
+
+
+state 10
+
+    (23) funcBody -> LEFTBRACKET . localVarDeclOrStmtArr RIGHTBRACKET
+    (24) localVarDeclOrStmtArr -> . localVarDeclOrStmt localVarDeclOrStmtArr
+    (25) localVarDeclOrStmtArr -> .
+    (26) localVarDeclOrStmt -> . localVarDecl
+    (27) localVarDeclOrStmt -> . statement
+    (28) localVarDecl -> . LOCALVAR ID COLON type arraySizeArr SEMICOLON
+    (29) localVarDecl -> . LOCALVAR ID COLON type LEFTPARENTHESES aParams RIGHTPARENTHESES SEMICOLON
+    (30) statement -> . assignStat SEMICOLON
+    (31) statement -> . IF LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN statBlock ELSE statBlock SEMICOLON
+    (32) statement -> . WHILE LEFTPARENTHESES relExpr RIGHTPARENTHESES statBlock SEMICOLON
+    (33) statement -> . READ LEFTPARENTHESES variable RIGHTPARENTHESES SEMICOLON
+    (34) statement -> . WRITE LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON
+    (35) statement -> . RETURN LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON
+    (36) statement -> . functionCall SEMICOLON
+    (37) assignStat -> . variable ASSIGN expr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (58) variable -> . idnestArr ID indiceArr
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    RIGHTBRACKET    reduce using rule 25 (localVarDeclOrStmtArr -> .)
+    LOCALVAR        shift and go to state 18
+    IF              shift and go to state 21
+    WHILE           shift and go to state 22
+    READ            shift and go to state 23
+    WRITE           shift and go to state 25
+    RETURN          shift and go to state 26
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    localVarDeclOrStmtArr          shift and go to state 14
+    localVarDeclOrStmt             shift and go to state 15
+    localVarDecl                   shift and go to state 16
+    statement                      shift and go to state 17
+    assignStat                     shift and go to state 20
+    variable                       shift and go to state 24
+    functionCall                   shift and go to state 27
+    idnestArr                      shift and go to state 28
+    idnest                         shift and go to state 29
+
+state 11
+
+    (19) funcHead -> FUNCTION idsrArr . ID LEFTPARENTHESES fParams RIGHTPARENTHESES ARROW returnType
+
+    ID              shift and go to state 30
+
+
+state 12
+
+    (20) funcHead -> FUNCTION ID . SR CONSTRUCTOR LEFTPARENTHESES fParams RIGHTPARENTHESES
+    (21) idsrArr -> ID . SR idsrArr
+
+    SR              shift and go to state 31
+
+
+state 13
+
+    (4) classDecl -> CLASS ID LEFTBRACE . visibilityMemberDeclArr RIGHTBRACE
+    (5) visibilityMemberDeclArr -> . visibilityMemberDecl visibilityMemberDeclArr
+    (6) visibilityMemberDeclArr -> .
+    (7) visibilityMemberDecl -> . visibility memberDecl
+    (8) visibility -> . PUBLIC
+    (9) visibility -> . PRIVATE
+    (10) visibility -> .
+
+    RIGHTBRACE      reduce using rule 6 (visibilityMemberDeclArr -> .)
+    PUBLIC          shift and go to state 35
+    PRIVATE         shift and go to state 36
+    FUNCTION        reduce using rule 10 (visibility -> .)
+    CONSTRUCTOR     reduce using rule 10 (visibility -> .)
+    ATTRIBUTE       reduce using rule 10 (visibility -> .)
+
+    visibilityMemberDeclArr        shift and go to state 32
+    visibilityMemberDecl           shift and go to state 33
+    visibility                     shift and go to state 34
+
+state 14
+
+    (23) funcBody -> LEFTBRACKET localVarDeclOrStmtArr . RIGHTBRACKET
+
+    RIGHTBRACKET    shift and go to state 37
+
+
+state 15
+
+    (24) localVarDeclOrStmtArr -> localVarDeclOrStmt . localVarDeclOrStmtArr
+    (24) localVarDeclOrStmtArr -> . localVarDeclOrStmt localVarDeclOrStmtArr
+    (25) localVarDeclOrStmtArr -> .
+    (26) localVarDeclOrStmt -> . localVarDecl
+    (27) localVarDeclOrStmt -> . statement
+    (28) localVarDecl -> . LOCALVAR ID COLON type arraySizeArr SEMICOLON
+    (29) localVarDecl -> . LOCALVAR ID COLON type LEFTPARENTHESES aParams RIGHTPARENTHESES SEMICOLON
+    (30) statement -> . assignStat SEMICOLON
+    (31) statement -> . IF LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN statBlock ELSE statBlock SEMICOLON
+    (32) statement -> . WHILE LEFTPARENTHESES relExpr RIGHTPARENTHESES statBlock SEMICOLON
+    (33) statement -> . READ LEFTPARENTHESES variable RIGHTPARENTHESES SEMICOLON
+    (34) statement -> . WRITE LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON
+    (35) statement -> . RETURN LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON
+    (36) statement -> . functionCall SEMICOLON
+    (37) assignStat -> . variable ASSIGN expr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (58) variable -> . idnestArr ID indiceArr
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    RIGHTBRACKET    reduce using rule 25 (localVarDeclOrStmtArr -> .)
+    LOCALVAR        shift and go to state 18
+    IF              shift and go to state 21
+    WHILE           shift and go to state 22
+    READ            shift and go to state 23
+    WRITE           shift and go to state 25
+    RETURN          shift and go to state 26
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    localVarDeclOrStmt             shift and go to state 15
+    localVarDeclOrStmtArr          shift and go to state 38
+    localVarDecl                   shift and go to state 16
+    statement                      shift and go to state 17
+    assignStat                     shift and go to state 20
+    variable                       shift and go to state 24
+    functionCall                   shift and go to state 27
+    idnestArr                      shift and go to state 28
+    idnest                         shift and go to state 29
+
+state 16
+
+    (26) localVarDeclOrStmt -> localVarDecl .
+
+    LOCALVAR        reduce using rule 26 (localVarDeclOrStmt -> localVarDecl .)
+    IF              reduce using rule 26 (localVarDeclOrStmt -> localVarDecl .)
+    WHILE           reduce using rule 26 (localVarDeclOrStmt -> localVarDecl .)
+    READ            reduce using rule 26 (localVarDeclOrStmt -> localVarDecl .)
+    WRITE           reduce using rule 26 (localVarDeclOrStmt -> localVarDecl .)
+    RETURN          reduce using rule 26 (localVarDeclOrStmt -> localVarDecl .)
+    ID              reduce using rule 26 (localVarDeclOrStmt -> localVarDecl .)
+    RIGHTBRACKET    reduce using rule 26 (localVarDeclOrStmt -> localVarDecl .)
+
+
+state 17
+
+    (27) localVarDeclOrStmt -> statement .
+
+    LOCALVAR        reduce using rule 27 (localVarDeclOrStmt -> statement .)
+    IF              reduce using rule 27 (localVarDeclOrStmt -> statement .)
+    WHILE           reduce using rule 27 (localVarDeclOrStmt -> statement .)
+    READ            reduce using rule 27 (localVarDeclOrStmt -> statement .)
+    WRITE           reduce using rule 27 (localVarDeclOrStmt -> statement .)
+    RETURN          reduce using rule 27 (localVarDeclOrStmt -> statement .)
+    ID              reduce using rule 27 (localVarDeclOrStmt -> statement .)
+    RIGHTBRACKET    reduce using rule 27 (localVarDeclOrStmt -> statement .)
+
+
+state 18
+
+    (28) localVarDecl -> LOCALVAR . ID COLON type arraySizeArr SEMICOLON
+    (29) localVarDecl -> LOCALVAR . ID COLON type LEFTPARENTHESES aParams RIGHTPARENTHESES SEMICOLON
+
+    ID              shift and go to state 39
+
+
+state 19
+
+    (94) idnest -> ID . idnestTail
+    (95) idnestTail -> .
+    (96) idnestTail -> . LEFTBRACE arithExpr RIGHTBRACE idnestTail
+    (97) idnestTail -> . LEFTPARENTHESES aParams RIGHTPARENTHESES idnestTail
+    (98) idnestTail -> . DOT
+
+  ! shift/reduce conflict for LEFTBRACE resolved as shift
+    ID              reduce using rule 95 (idnestTail -> .)
+    LEFTBRACE       shift and go to state 41
+    LEFTPARENTHESES shift and go to state 42
+    DOT             shift and go to state 43
+
+  ! LEFTBRACE       [ reduce using rule 95 (idnestTail -> .) ]
+
+    idnestTail                     shift and go to state 40
+
+state 20
+
+    (30) statement -> assignStat . SEMICOLON
+
+    SEMICOLON       shift and go to state 44
+
+
+state 21
+
+    (31) statement -> IF . LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN statBlock ELSE statBlock SEMICOLON
+
+    LEFTPARENTHESES shift and go to state 45
+
+
+state 22
+
+    (32) statement -> WHILE . LEFTPARENTHESES relExpr RIGHTPARENTHESES statBlock SEMICOLON
+
+    LEFTPARENTHESES shift and go to state 46
+
+
+state 23
+
+    (33) statement -> READ . LEFTPARENTHESES variable RIGHTPARENTHESES SEMICOLON
+
+    LEFTPARENTHESES shift and go to state 47
+
+
+state 24
+
+    (37) assignStat -> variable . ASSIGN expr
+
+    ASSIGN          shift and go to state 48
+
+
+state 25
+
+    (34) statement -> WRITE . LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON
+
+    LEFTPARENTHESES shift and go to state 49
+
+
+state 26
+
+    (35) statement -> RETURN . LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON
+
+    LEFTPARENTHESES shift and go to state 50
+
+
+state 27
+
+    (36) statement -> functionCall . SEMICOLON
+
+    SEMICOLON       shift and go to state 51
+
+
+state 28
+
+    (63) functionCall -> idnestArr . ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (58) variable -> idnestArr . ID indiceArr
+
+    ID              shift and go to state 52
+
+
+state 29
+
+    (59) idnestArr -> idnest . indiceArr
+    (61) indiceArr -> . indice indiceArr
+    (62) indiceArr -> .
+    (64) indice -> . LEFTBRACE arithExpr RIGHTBRACE
+
+    ID              reduce using rule 62 (indiceArr -> .)
+    LEFTBRACE       shift and go to state 55
+
+    indiceArr                      shift and go to state 53
+    indice                         shift and go to state 54
+
+state 30
+
+    (19) funcHead -> FUNCTION idsrArr ID . LEFTPARENTHESES fParams RIGHTPARENTHESES ARROW returnType
+
+    LEFTPARENTHESES shift and go to state 56
+
+
+state 31
+
+    (20) funcHead -> FUNCTION ID SR . CONSTRUCTOR LEFTPARENTHESES fParams RIGHTPARENTHESES
+    (21) idsrArr -> ID SR . idsrArr
+    (21) idsrArr -> . ID SR idsrArr
+    (22) idsrArr -> .
+
+  ! shift/reduce conflict for ID resolved as shift
+    CONSTRUCTOR     shift and go to state 58
+    ID              shift and go to state 57
+
+  ! ID              [ reduce using rule 22 (idsrArr -> .) ]
+
+    idsrArr                        shift and go to state 59
+
+state 32
+
+    (4) classDecl -> CLASS ID LEFTBRACE visibilityMemberDeclArr . RIGHTBRACE
+
+    RIGHTBRACE      shift and go to state 60
+
+
+state 33
+
+    (5) visibilityMemberDeclArr -> visibilityMemberDecl . visibilityMemberDeclArr
+    (5) visibilityMemberDeclArr -> . visibilityMemberDecl visibilityMemberDeclArr
+    (6) visibilityMemberDeclArr -> .
+    (7) visibilityMemberDecl -> . visibility memberDecl
+    (8) visibility -> . PUBLIC
+    (9) visibility -> . PRIVATE
+    (10) visibility -> .
+
+    RIGHTBRACE      reduce using rule 6 (visibilityMemberDeclArr -> .)
+    PUBLIC          shift and go to state 35
+    PRIVATE         shift and go to state 36
+    FUNCTION        reduce using rule 10 (visibility -> .)
+    CONSTRUCTOR     reduce using rule 10 (visibility -> .)
+    ATTRIBUTE       reduce using rule 10 (visibility -> .)
+
+    visibilityMemberDecl           shift and go to state 33
+    visibilityMemberDeclArr        shift and go to state 61
+    visibility                     shift and go to state 34
+
+state 34
+
+    (7) visibilityMemberDecl -> visibility . memberDecl
+    (11) memberDecl -> . memberFuncDecl
+    (12) memberDecl -> . memberVarDecl
+    (13) memberFuncDecl -> . FUNCTION ID COLON LEFTPARENTHESES fParams RIGHTPARENTHESES ARROW returnType SEMICOLON
+    (14) memberFuncDecl -> . CONSTRUCTOR COLON LEFTPARENTHESES fParams RIGHTPARENTHESES SEMICOLON
+    (15) memberVarDecl -> . ATTRIBUTE ID COLON type arraySizeArr SEMICOLON
+
+    FUNCTION        shift and go to state 65
+    CONSTRUCTOR     shift and go to state 66
+    ATTRIBUTE       shift and go to state 67
+
+    memberDecl                     shift and go to state 62
+    memberFuncDecl                 shift and go to state 63
+    memberVarDecl                  shift and go to state 64
+
+state 35
+
+    (8) visibility -> PUBLIC .
+
+    FUNCTION        reduce using rule 8 (visibility -> PUBLIC .)
+    CONSTRUCTOR     reduce using rule 8 (visibility -> PUBLIC .)
+    ATTRIBUTE       reduce using rule 8 (visibility -> PUBLIC .)
+
+
+state 36
+
+    (9) visibility -> PRIVATE .
+
+    FUNCTION        reduce using rule 9 (visibility -> PRIVATE .)
+    CONSTRUCTOR     reduce using rule 9 (visibility -> PRIVATE .)
+    ATTRIBUTE       reduce using rule 9 (visibility -> PRIVATE .)
+
+
+state 37
+
+    (23) funcBody -> LEFTBRACKET localVarDeclOrStmtArr RIGHTBRACKET .
+
+    $end            reduce using rule 23 (funcBody -> LEFTBRACKET localVarDeclOrStmtArr RIGHTBRACKET .)
+
+
+state 38
+
+    (24) localVarDeclOrStmtArr -> localVarDeclOrStmt localVarDeclOrStmtArr .
+
+    RIGHTBRACKET    reduce using rule 24 (localVarDeclOrStmtArr -> localVarDeclOrStmt localVarDeclOrStmtArr .)
+
+
+state 39
+
+    (28) localVarDecl -> LOCALVAR ID . COLON type arraySizeArr SEMICOLON
+    (29) localVarDecl -> LOCALVAR ID . COLON type LEFTPARENTHESES aParams RIGHTPARENTHESES SEMICOLON
+
+    COLON           shift and go to state 68
+
+
+state 40
+
+    (94) idnest -> ID idnestTail .
+
+    LEFTBRACE       reduce using rule 94 (idnest -> ID idnestTail .)
+    ID              reduce using rule 94 (idnest -> ID idnestTail .)
+
+
+state 41
+
+    (96) idnestTail -> LEFTBRACE . arithExpr RIGHTBRACE idnestTail
+    (45) arithExpr -> . term arithExprtail
+    (48) term -> . factor termTail
+    (51) factor -> . variable
+    (52) factor -> . functionCall
+    (53) factor -> . INTLIT
+    (54) factor -> . FLOATLIT
+    (55) factor -> . LEFTPARENTHESES arithExpr RIGHTPARENTHESES
+    (56) factor -> . NOT factor
+    (57) factor -> . sign factor
+    (58) variable -> . idnestArr ID indiceArr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (92) sign -> . ADD
+    (93) sign -> . SUB
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    INTLIT          shift and go to state 74
+    FLOATLIT        shift and go to state 75
+    LEFTPARENTHESES shift and go to state 76
+    NOT             shift and go to state 77
+    ADD             shift and go to state 80
+    SUB             shift and go to state 81
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    arithExpr                      shift and go to state 69
+    term                           shift and go to state 70
+    factor                         shift and go to state 71
+    variable                       shift and go to state 72
+    functionCall                   shift and go to state 73
+    sign                           shift and go to state 78
+    idnestArr                      shift and go to state 79
+    idnest                         shift and go to state 29
+
+state 42
+
+    (97) idnestTail -> LEFTPARENTHESES . aParams RIGHTPARENTHESES idnestTail
+    (71) aParams -> . expr aParamsTailArr
+    (72) aParams -> .
+    (42) expr -> . arithExpr
+    (43) expr -> . relExpr
+    (45) arithExpr -> . term arithExprtail
+    (44) relExpr -> . arithExpr relOp arithExpr
+    (48) term -> . factor termTail
+    (51) factor -> . variable
+    (52) factor -> . functionCall
+    (53) factor -> . INTLIT
+    (54) factor -> . FLOATLIT
+    (55) factor -> . LEFTPARENTHESES arithExpr RIGHTPARENTHESES
+    (56) factor -> . NOT factor
+    (57) factor -> . sign factor
+    (58) variable -> . idnestArr ID indiceArr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (92) sign -> . ADD
+    (93) sign -> . SUB
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    RIGHTPARENTHESES reduce using rule 72 (aParams -> .)
+    INTLIT          shift and go to state 74
+    FLOATLIT        shift and go to state 75
+    LEFTPARENTHESES shift and go to state 76
+    NOT             shift and go to state 77
+    ADD             shift and go to state 80
+    SUB             shift and go to state 81
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    aParams                        shift and go to state 82
+    expr                           shift and go to state 83
+    arithExpr                      shift and go to state 84
+    relExpr                        shift and go to state 85
+    term                           shift and go to state 70
+    factor                         shift and go to state 71
+    variable                       shift and go to state 72
+    functionCall                   shift and go to state 73
+    sign                           shift and go to state 78
+    idnestArr                      shift and go to state 79
+    idnest                         shift and go to state 29
+
+state 43
+
+    (98) idnestTail -> DOT .
+
+    LEFTBRACE       reduce using rule 98 (idnestTail -> DOT .)
+    ID              reduce using rule 98 (idnestTail -> DOT .)
+
+
+state 44
+
+    (30) statement -> assignStat SEMICOLON .
+
+    LOCALVAR        reduce using rule 30 (statement -> assignStat SEMICOLON .)
+    IF              reduce using rule 30 (statement -> assignStat SEMICOLON .)
+    WHILE           reduce using rule 30 (statement -> assignStat SEMICOLON .)
+    READ            reduce using rule 30 (statement -> assignStat SEMICOLON .)
+    WRITE           reduce using rule 30 (statement -> assignStat SEMICOLON .)
+    RETURN          reduce using rule 30 (statement -> assignStat SEMICOLON .)
+    ID              reduce using rule 30 (statement -> assignStat SEMICOLON .)
+    RIGHTBRACKET    reduce using rule 30 (statement -> assignStat SEMICOLON .)
+    SEMICOLON       reduce using rule 30 (statement -> assignStat SEMICOLON .)
+    ELSE            reduce using rule 30 (statement -> assignStat SEMICOLON .)
+    RIGHTBRACE      reduce using rule 30 (statement -> assignStat SEMICOLON .)
+
+
+state 45
+
+    (31) statement -> IF LEFTPARENTHESES . relExpr RIGHTPARENTHESES THEN statBlock ELSE statBlock SEMICOLON
+    (44) relExpr -> . arithExpr relOp arithExpr
+    (45) arithExpr -> . term arithExprtail
+    (48) term -> . factor termTail
+    (51) factor -> . variable
+    (52) factor -> . functionCall
+    (53) factor -> . INTLIT
+    (54) factor -> . FLOATLIT
+    (55) factor -> . LEFTPARENTHESES arithExpr RIGHTPARENTHESES
+    (56) factor -> . NOT factor
+    (57) factor -> . sign factor
+    (58) variable -> . idnestArr ID indiceArr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (92) sign -> . ADD
+    (93) sign -> . SUB
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    INTLIT          shift and go to state 74
+    FLOATLIT        shift and go to state 75
+    LEFTPARENTHESES shift and go to state 76
+    NOT             shift and go to state 77
+    ADD             shift and go to state 80
+    SUB             shift and go to state 81
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    relExpr                        shift and go to state 86
+    arithExpr                      shift and go to state 87
+    term                           shift and go to state 70
+    factor                         shift and go to state 71
+    variable                       shift and go to state 72
+    functionCall                   shift and go to state 73
+    sign                           shift and go to state 78
+    idnestArr                      shift and go to state 79
+    idnest                         shift and go to state 29
+
+state 46
+
+    (32) statement -> WHILE LEFTPARENTHESES . relExpr RIGHTPARENTHESES statBlock SEMICOLON
+    (44) relExpr -> . arithExpr relOp arithExpr
+    (45) arithExpr -> . term arithExprtail
+    (48) term -> . factor termTail
+    (51) factor -> . variable
+    (52) factor -> . functionCall
+    (53) factor -> . INTLIT
+    (54) factor -> . FLOATLIT
+    (55) factor -> . LEFTPARENTHESES arithExpr RIGHTPARENTHESES
+    (56) factor -> . NOT factor
+    (57) factor -> . sign factor
+    (58) variable -> . idnestArr ID indiceArr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (92) sign -> . ADD
+    (93) sign -> . SUB
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    INTLIT          shift and go to state 74
+    FLOATLIT        shift and go to state 75
+    LEFTPARENTHESES shift and go to state 76
+    NOT             shift and go to state 77
+    ADD             shift and go to state 80
+    SUB             shift and go to state 81
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    relExpr                        shift and go to state 88
+    arithExpr                      shift and go to state 87
+    term                           shift and go to state 70
+    factor                         shift and go to state 71
+    variable                       shift and go to state 72
+    functionCall                   shift and go to state 73
+    sign                           shift and go to state 78
+    idnestArr                      shift and go to state 79
+    idnest                         shift and go to state 29
+
+state 47
+
+    (33) statement -> READ LEFTPARENTHESES . variable RIGHTPARENTHESES SEMICOLON
+    (58) variable -> . idnestArr ID indiceArr
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    variable                       shift and go to state 89
+    idnestArr                      shift and go to state 90
+    idnest                         shift and go to state 29
+
+state 48
+
+    (37) assignStat -> variable ASSIGN . expr
+    (42) expr -> . arithExpr
+    (43) expr -> . relExpr
+    (45) arithExpr -> . term arithExprtail
+    (44) relExpr -> . arithExpr relOp arithExpr
+    (48) term -> . factor termTail
+    (51) factor -> . variable
+    (52) factor -> . functionCall
+    (53) factor -> . INTLIT
+    (54) factor -> . FLOATLIT
+    (55) factor -> . LEFTPARENTHESES arithExpr RIGHTPARENTHESES
+    (56) factor -> . NOT factor
+    (57) factor -> . sign factor
+    (58) variable -> . idnestArr ID indiceArr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (92) sign -> . ADD
+    (93) sign -> . SUB
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    INTLIT          shift and go to state 74
+    FLOATLIT        shift and go to state 75
+    LEFTPARENTHESES shift and go to state 76
+    NOT             shift and go to state 77
+    ADD             shift and go to state 80
+    SUB             shift and go to state 81
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    variable                       shift and go to state 72
+    expr                           shift and go to state 91
+    arithExpr                      shift and go to state 84
+    relExpr                        shift and go to state 85
+    term                           shift and go to state 70
+    factor                         shift and go to state 71
+    functionCall                   shift and go to state 73
+    sign                           shift and go to state 78
+    idnestArr                      shift and go to state 79
+    idnest                         shift and go to state 29
+
+state 49
+
+    (34) statement -> WRITE LEFTPARENTHESES . expr RIGHTPARENTHESES SEMICOLON
+    (42) expr -> . arithExpr
+    (43) expr -> . relExpr
+    (45) arithExpr -> . term arithExprtail
+    (44) relExpr -> . arithExpr relOp arithExpr
+    (48) term -> . factor termTail
+    (51) factor -> . variable
+    (52) factor -> . functionCall
+    (53) factor -> . INTLIT
+    (54) factor -> . FLOATLIT
+    (55) factor -> . LEFTPARENTHESES arithExpr RIGHTPARENTHESES
+    (56) factor -> . NOT factor
+    (57) factor -> . sign factor
+    (58) variable -> . idnestArr ID indiceArr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (92) sign -> . ADD
+    (93) sign -> . SUB
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    INTLIT          shift and go to state 74
+    FLOATLIT        shift and go to state 75
+    LEFTPARENTHESES shift and go to state 76
+    NOT             shift and go to state 77
+    ADD             shift and go to state 80
+    SUB             shift and go to state 81
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    expr                           shift and go to state 92
+    arithExpr                      shift and go to state 84
+    relExpr                        shift and go to state 85
+    term                           shift and go to state 70
+    factor                         shift and go to state 71
+    variable                       shift and go to state 72
+    functionCall                   shift and go to state 73
+    sign                           shift and go to state 78
+    idnestArr                      shift and go to state 79
+    idnest                         shift and go to state 29
+
+state 50
+
+    (35) statement -> RETURN LEFTPARENTHESES . expr RIGHTPARENTHESES SEMICOLON
+    (42) expr -> . arithExpr
+    (43) expr -> . relExpr
+    (45) arithExpr -> . term arithExprtail
+    (44) relExpr -> . arithExpr relOp arithExpr
+    (48) term -> . factor termTail
+    (51) factor -> . variable
+    (52) factor -> . functionCall
+    (53) factor -> . INTLIT
+    (54) factor -> . FLOATLIT
+    (55) factor -> . LEFTPARENTHESES arithExpr RIGHTPARENTHESES
+    (56) factor -> . NOT factor
+    (57) factor -> . sign factor
+    (58) variable -> . idnestArr ID indiceArr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (92) sign -> . ADD
+    (93) sign -> . SUB
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    INTLIT          shift and go to state 74
+    FLOATLIT        shift and go to state 75
+    LEFTPARENTHESES shift and go to state 76
+    NOT             shift and go to state 77
+    ADD             shift and go to state 80
+    SUB             shift and go to state 81
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    expr                           shift and go to state 93
+    arithExpr                      shift and go to state 84
+    relExpr                        shift and go to state 85
+    term                           shift and go to state 70
+    factor                         shift and go to state 71
+    variable                       shift and go to state 72
+    functionCall                   shift and go to state 73
+    sign                           shift and go to state 78
+    idnestArr                      shift and go to state 79
+    idnest                         shift and go to state 29
+
+state 51
+
+    (36) statement -> functionCall SEMICOLON .
+
+    LOCALVAR        reduce using rule 36 (statement -> functionCall SEMICOLON .)
+    IF              reduce using rule 36 (statement -> functionCall SEMICOLON .)
+    WHILE           reduce using rule 36 (statement -> functionCall SEMICOLON .)
+    READ            reduce using rule 36 (statement -> functionCall SEMICOLON .)
+    WRITE           reduce using rule 36 (statement -> functionCall SEMICOLON .)
+    RETURN          reduce using rule 36 (statement -> functionCall SEMICOLON .)
+    ID              reduce using rule 36 (statement -> functionCall SEMICOLON .)
+    RIGHTBRACKET    reduce using rule 36 (statement -> functionCall SEMICOLON .)
+    SEMICOLON       reduce using rule 36 (statement -> functionCall SEMICOLON .)
+    ELSE            reduce using rule 36 (statement -> functionCall SEMICOLON .)
+    RIGHTBRACE      reduce using rule 36 (statement -> functionCall SEMICOLON .)
+
+
+state 52
+
+    (63) functionCall -> idnestArr ID . LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (58) variable -> idnestArr ID . indiceArr
+    (61) indiceArr -> . indice indiceArr
+    (62) indiceArr -> .
+    (64) indice -> . LEFTBRACE arithExpr RIGHTBRACE
+
+    LEFTPARENTHESES shift and go to state 94
+    ASSIGN          reduce using rule 62 (indiceArr -> .)
+    LEFTBRACE       shift and go to state 55
+
+    indiceArr                      shift and go to state 95
+    indice                         shift and go to state 54
+
+state 53
+
+    (59) idnestArr -> idnest indiceArr .
+
+    ID              reduce using rule 59 (idnestArr -> idnest indiceArr .)
+
+
+state 54
+
+    (61) indiceArr -> indice . indiceArr
+    (61) indiceArr -> . indice indiceArr
+    (62) indiceArr -> .
+    (64) indice -> . LEFTBRACE arithExpr RIGHTBRACE
+
+    ID              reduce using rule 62 (indiceArr -> .)
+    ASSIGN          reduce using rule 62 (indiceArr -> .)
+    MUL             reduce using rule 62 (indiceArr -> .)
+    DIV             reduce using rule 62 (indiceArr -> .)
+    AND             reduce using rule 62 (indiceArr -> .)
+    ADD             reduce using rule 62 (indiceArr -> .)
+    SUB             reduce using rule 62 (indiceArr -> .)
+    OR              reduce using rule 62 (indiceArr -> .)
+    RIGHTBRACE      reduce using rule 62 (indiceArr -> .)
+    EQ              reduce using rule 62 (indiceArr -> .)
+    NEQ             reduce using rule 62 (indiceArr -> .)
+    LT              reduce using rule 62 (indiceArr -> .)
+    GT              reduce using rule 62 (indiceArr -> .)
+    LEQ             reduce using rule 62 (indiceArr -> .)
+    GEQ             reduce using rule 62 (indiceArr -> .)
+    INTLIT          reduce using rule 62 (indiceArr -> .)
+    FLOATLIT        reduce using rule 62 (indiceArr -> .)
+    LEFTPARENTHESES reduce using rule 62 (indiceArr -> .)
+    NOT             reduce using rule 62 (indiceArr -> .)
+    RIGHTPARENTHESES reduce using rule 62 (indiceArr -> .)
+    SEMICOLON       reduce using rule 62 (indiceArr -> .)
+    LEFTBRACE       shift and go to state 55
+
+    indice                         shift and go to state 54
+    indiceArr                      shift and go to state 96
+
+state 55
+
+    (64) indice -> LEFTBRACE . arithExpr RIGHTBRACE
+    (45) arithExpr -> . term arithExprtail
+    (48) term -> . factor termTail
+    (51) factor -> . variable
+    (52) factor -> . functionCall
+    (53) factor -> . INTLIT
+    (54) factor -> . FLOATLIT
+    (55) factor -> . LEFTPARENTHESES arithExpr RIGHTPARENTHESES
+    (56) factor -> . NOT factor
+    (57) factor -> . sign factor
+    (58) variable -> . idnestArr ID indiceArr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (92) sign -> . ADD
+    (93) sign -> . SUB
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    INTLIT          shift and go to state 74
+    FLOATLIT        shift and go to state 75
+    LEFTPARENTHESES shift and go to state 76
+    NOT             shift and go to state 77
+    ADD             shift and go to state 80
+    SUB             shift and go to state 81
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    arithExpr                      shift and go to state 97
+    term                           shift and go to state 70
+    factor                         shift and go to state 71
+    variable                       shift and go to state 72
+    functionCall                   shift and go to state 73
+    sign                           shift and go to state 78
+    idnestArr                      shift and go to state 79
+    idnest                         shift and go to state 29
+
+state 56
+
+    (19) funcHead -> FUNCTION idsrArr ID LEFTPARENTHESES . fParams RIGHTPARENTHESES ARROW returnType
+    (67) fParams -> . ID COLON type arraySizeArr fParamsTailArr
+    (68) fParams -> .
+
+    ID              shift and go to state 98
+    RIGHTPARENTHESES reduce using rule 68 (fParams -> .)
+
+    fParams                        shift and go to state 99
+
+state 57
+
+    (21) idsrArr -> ID . SR idsrArr
+
+    SR              shift and go to state 100
+
+
+state 58
+
+    (20) funcHead -> FUNCTION ID SR CONSTRUCTOR . LEFTPARENTHESES fParams RIGHTPARENTHESES
+
+    LEFTPARENTHESES shift and go to state 101
+
+
+state 59
+
+    (21) idsrArr -> ID SR idsrArr .
+
+    ID              reduce using rule 21 (idsrArr -> ID SR idsrArr .)
+
+
+state 60
+
+    (4) classDecl -> CLASS ID LEFTBRACE visibilityMemberDeclArr RIGHTBRACE .
+
+    $end            reduce using rule 4 (classDecl -> CLASS ID LEFTBRACE visibilityMemberDeclArr RIGHTBRACE .)
+
+
+state 61
+
+    (5) visibilityMemberDeclArr -> visibilityMemberDecl visibilityMemberDeclArr .
+
+    RIGHTBRACE      reduce using rule 5 (visibilityMemberDeclArr -> visibilityMemberDecl visibilityMemberDeclArr .)
+
+
+state 62
+
+    (7) visibilityMemberDecl -> visibility memberDecl .
+
+    PUBLIC          reduce using rule 7 (visibilityMemberDecl -> visibility memberDecl .)
+    PRIVATE         reduce using rule 7 (visibilityMemberDecl -> visibility memberDecl .)
+    FUNCTION        reduce using rule 7 (visibilityMemberDecl -> visibility memberDecl .)
+    CONSTRUCTOR     reduce using rule 7 (visibilityMemberDecl -> visibility memberDecl .)
+    ATTRIBUTE       reduce using rule 7 (visibilityMemberDecl -> visibility memberDecl .)
+    RIGHTBRACE      reduce using rule 7 (visibilityMemberDecl -> visibility memberDecl .)
+
+
+state 63
+
+    (11) memberDecl -> memberFuncDecl .
+
+    PUBLIC          reduce using rule 11 (memberDecl -> memberFuncDecl .)
+    PRIVATE         reduce using rule 11 (memberDecl -> memberFuncDecl .)
+    FUNCTION        reduce using rule 11 (memberDecl -> memberFuncDecl .)
+    CONSTRUCTOR     reduce using rule 11 (memberDecl -> memberFuncDecl .)
+    ATTRIBUTE       reduce using rule 11 (memberDecl -> memberFuncDecl .)
+    RIGHTBRACE      reduce using rule 11 (memberDecl -> memberFuncDecl .)
+
+
+state 64
+
+    (12) memberDecl -> memberVarDecl .
+
+    PUBLIC          reduce using rule 12 (memberDecl -> memberVarDecl .)
+    PRIVATE         reduce using rule 12 (memberDecl -> memberVarDecl .)
+    FUNCTION        reduce using rule 12 (memberDecl -> memberVarDecl .)
+    CONSTRUCTOR     reduce using rule 12 (memberDecl -> memberVarDecl .)
+    ATTRIBUTE       reduce using rule 12 (memberDecl -> memberVarDecl .)
+    RIGHTBRACE      reduce using rule 12 (memberDecl -> memberVarDecl .)
+
+
+state 65
+
+    (13) memberFuncDecl -> FUNCTION . ID COLON LEFTPARENTHESES fParams RIGHTPARENTHESES ARROW returnType SEMICOLON
+
+    ID              shift and go to state 102
+
+
+state 66
+
+    (14) memberFuncDecl -> CONSTRUCTOR . COLON LEFTPARENTHESES fParams RIGHTPARENTHESES SEMICOLON
+
+    COLON           shift and go to state 103
+
+
+state 67
+
+    (15) memberVarDecl -> ATTRIBUTE . ID COLON type arraySizeArr SEMICOLON
+
+    ID              shift and go to state 104
+
+
+state 68
+
+    (28) localVarDecl -> LOCALVAR ID COLON . type arraySizeArr SEMICOLON
+    (29) localVarDecl -> LOCALVAR ID COLON . type LEFTPARENTHESES aParams RIGHTPARENTHESES SEMICOLON
+    (87) type -> . INTEGER
+    (88) type -> . FLOAT
+    (89) type -> . ID
+
+    INTEGER         shift and go to state 107
+    FLOAT           shift and go to state 108
+    ID              shift and go to state 105
+
+    type                           shift and go to state 106
+
+state 69
+
+    (96) idnestTail -> LEFTBRACE arithExpr . RIGHTBRACE idnestTail
+
+    RIGHTBRACE      shift and go to state 109
+
+
+state 70
+
+    (45) arithExpr -> term . arithExprtail
+    (46) arithExprtail -> . addOp term arithExprtail
+    (47) arithExprtail -> .
+    (81) addOp -> . ADD
+    (82) addOp -> . SUB
+    (83) addOp -> . OR
+
+  ! shift/reduce conflict for ADD resolved as shift
+  ! shift/reduce conflict for SUB resolved as shift
+    RIGHTBRACE      reduce using rule 47 (arithExprtail -> .)
+    EQ              reduce using rule 47 (arithExprtail -> .)
+    NEQ             reduce using rule 47 (arithExprtail -> .)
+    LT              reduce using rule 47 (arithExprtail -> .)
+    GT              reduce using rule 47 (arithExprtail -> .)
+    LEQ             reduce using rule 47 (arithExprtail -> .)
+    GEQ             reduce using rule 47 (arithExprtail -> .)
+    INTLIT          reduce using rule 47 (arithExprtail -> .)
+    FLOATLIT        reduce using rule 47 (arithExprtail -> .)
+    LEFTPARENTHESES reduce using rule 47 (arithExprtail -> .)
+    NOT             reduce using rule 47 (arithExprtail -> .)
+    ID              reduce using rule 47 (arithExprtail -> .)
+    RIGHTPARENTHESES reduce using rule 47 (arithExprtail -> .)
+    SEMICOLON       reduce using rule 47 (arithExprtail -> .)
+    ADD             shift and go to state 112
+    SUB             shift and go to state 113
+    OR              shift and go to state 114
+
+  ! ADD             [ reduce using rule 47 (arithExprtail -> .) ]
+  ! SUB             [ reduce using rule 47 (arithExprtail -> .) ]
+
+    arithExprtail                  shift and go to state 110
+    addOp                          shift and go to state 111
+
+state 71
+
+    (48) term -> factor . termTail
+    (49) termTail -> . multOp factor termTail
+    (50) termTail -> .
+    (84) multOp -> . MUL
+    (85) multOp -> . DIV
+    (86) multOp -> . AND
+
+    ADD             reduce using rule 50 (termTail -> .)
+    SUB             reduce using rule 50 (termTail -> .)
+    OR              reduce using rule 50 (termTail -> .)
+    RIGHTBRACE      reduce using rule 50 (termTail -> .)
+    EQ              reduce using rule 50 (termTail -> .)
+    NEQ             reduce using rule 50 (termTail -> .)
+    LT              reduce using rule 50 (termTail -> .)
+    GT              reduce using rule 50 (termTail -> .)
+    LEQ             reduce using rule 50 (termTail -> .)
+    GEQ             reduce using rule 50 (termTail -> .)
+    INTLIT          reduce using rule 50 (termTail -> .)
+    FLOATLIT        reduce using rule 50 (termTail -> .)
+    LEFTPARENTHESES reduce using rule 50 (termTail -> .)
+    NOT             reduce using rule 50 (termTail -> .)
+    ID              reduce using rule 50 (termTail -> .)
+    RIGHTPARENTHESES reduce using rule 50 (termTail -> .)
+    SEMICOLON       reduce using rule 50 (termTail -> .)
+    MUL             shift and go to state 117
+    DIV             shift and go to state 118
+    AND             shift and go to state 119
+
+    termTail                       shift and go to state 115
+    multOp                         shift and go to state 116
+
+state 72
+
+    (51) factor -> variable .
+
+    MUL             reduce using rule 51 (factor -> variable .)
+    DIV             reduce using rule 51 (factor -> variable .)
+    AND             reduce using rule 51 (factor -> variable .)
+    ADD             reduce using rule 51 (factor -> variable .)
+    SUB             reduce using rule 51 (factor -> variable .)
+    OR              reduce using rule 51 (factor -> variable .)
+    RIGHTBRACE      reduce using rule 51 (factor -> variable .)
+    EQ              reduce using rule 51 (factor -> variable .)
+    NEQ             reduce using rule 51 (factor -> variable .)
+    LT              reduce using rule 51 (factor -> variable .)
+    GT              reduce using rule 51 (factor -> variable .)
+    LEQ             reduce using rule 51 (factor -> variable .)
+    GEQ             reduce using rule 51 (factor -> variable .)
+    INTLIT          reduce using rule 51 (factor -> variable .)
+    FLOATLIT        reduce using rule 51 (factor -> variable .)
+    LEFTPARENTHESES reduce using rule 51 (factor -> variable .)
+    NOT             reduce using rule 51 (factor -> variable .)
+    ID              reduce using rule 51 (factor -> variable .)
+    RIGHTPARENTHESES reduce using rule 51 (factor -> variable .)
+    SEMICOLON       reduce using rule 51 (factor -> variable .)
+
+
+state 73
+
+    (52) factor -> functionCall .
+
+    MUL             reduce using rule 52 (factor -> functionCall .)
+    DIV             reduce using rule 52 (factor -> functionCall .)
+    AND             reduce using rule 52 (factor -> functionCall .)
+    ADD             reduce using rule 52 (factor -> functionCall .)
+    SUB             reduce using rule 52 (factor -> functionCall .)
+    OR              reduce using rule 52 (factor -> functionCall .)
+    RIGHTBRACE      reduce using rule 52 (factor -> functionCall .)
+    EQ              reduce using rule 52 (factor -> functionCall .)
+    NEQ             reduce using rule 52 (factor -> functionCall .)
+    LT              reduce using rule 52 (factor -> functionCall .)
+    GT              reduce using rule 52 (factor -> functionCall .)
+    LEQ             reduce using rule 52 (factor -> functionCall .)
+    GEQ             reduce using rule 52 (factor -> functionCall .)
+    INTLIT          reduce using rule 52 (factor -> functionCall .)
+    FLOATLIT        reduce using rule 52 (factor -> functionCall .)
+    LEFTPARENTHESES reduce using rule 52 (factor -> functionCall .)
+    NOT             reduce using rule 52 (factor -> functionCall .)
+    ID              reduce using rule 52 (factor -> functionCall .)
+    RIGHTPARENTHESES reduce using rule 52 (factor -> functionCall .)
+    SEMICOLON       reduce using rule 52 (factor -> functionCall .)
+
+
+state 74
+
+    (53) factor -> INTLIT .
+
+    MUL             reduce using rule 53 (factor -> INTLIT .)
+    DIV             reduce using rule 53 (factor -> INTLIT .)
+    AND             reduce using rule 53 (factor -> INTLIT .)
+    ADD             reduce using rule 53 (factor -> INTLIT .)
+    SUB             reduce using rule 53 (factor -> INTLIT .)
+    OR              reduce using rule 53 (factor -> INTLIT .)
+    RIGHTBRACE      reduce using rule 53 (factor -> INTLIT .)
+    EQ              reduce using rule 53 (factor -> INTLIT .)
+    NEQ             reduce using rule 53 (factor -> INTLIT .)
+    LT              reduce using rule 53 (factor -> INTLIT .)
+    GT              reduce using rule 53 (factor -> INTLIT .)
+    LEQ             reduce using rule 53 (factor -> INTLIT .)
+    GEQ             reduce using rule 53 (factor -> INTLIT .)
+    INTLIT          reduce using rule 53 (factor -> INTLIT .)
+    FLOATLIT        reduce using rule 53 (factor -> INTLIT .)
+    LEFTPARENTHESES reduce using rule 53 (factor -> INTLIT .)
+    NOT             reduce using rule 53 (factor -> INTLIT .)
+    ID              reduce using rule 53 (factor -> INTLIT .)
+    RIGHTPARENTHESES reduce using rule 53 (factor -> INTLIT .)
+    SEMICOLON       reduce using rule 53 (factor -> INTLIT .)
+
+
+state 75
+
+    (54) factor -> FLOATLIT .
+
+    MUL             reduce using rule 54 (factor -> FLOATLIT .)
+    DIV             reduce using rule 54 (factor -> FLOATLIT .)
+    AND             reduce using rule 54 (factor -> FLOATLIT .)
+    ADD             reduce using rule 54 (factor -> FLOATLIT .)
+    SUB             reduce using rule 54 (factor -> FLOATLIT .)
+    OR              reduce using rule 54 (factor -> FLOATLIT .)
+    RIGHTBRACE      reduce using rule 54 (factor -> FLOATLIT .)
+    EQ              reduce using rule 54 (factor -> FLOATLIT .)
+    NEQ             reduce using rule 54 (factor -> FLOATLIT .)
+    LT              reduce using rule 54 (factor -> FLOATLIT .)
+    GT              reduce using rule 54 (factor -> FLOATLIT .)
+    LEQ             reduce using rule 54 (factor -> FLOATLIT .)
+    GEQ             reduce using rule 54 (factor -> FLOATLIT .)
+    INTLIT          reduce using rule 54 (factor -> FLOATLIT .)
+    FLOATLIT        reduce using rule 54 (factor -> FLOATLIT .)
+    LEFTPARENTHESES reduce using rule 54 (factor -> FLOATLIT .)
+    NOT             reduce using rule 54 (factor -> FLOATLIT .)
+    ID              reduce using rule 54 (factor -> FLOATLIT .)
+    RIGHTPARENTHESES reduce using rule 54 (factor -> FLOATLIT .)
+    SEMICOLON       reduce using rule 54 (factor -> FLOATLIT .)
+
+
+state 76
+
+    (55) factor -> LEFTPARENTHESES . arithExpr RIGHTPARENTHESES
+    (45) arithExpr -> . term arithExprtail
+    (48) term -> . factor termTail
+    (51) factor -> . variable
+    (52) factor -> . functionCall
+    (53) factor -> . INTLIT
+    (54) factor -> . FLOATLIT
+    (55) factor -> . LEFTPARENTHESES arithExpr RIGHTPARENTHESES
+    (56) factor -> . NOT factor
+    (57) factor -> . sign factor
+    (58) variable -> . idnestArr ID indiceArr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (92) sign -> . ADD
+    (93) sign -> . SUB
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    INTLIT          shift and go to state 74
+    FLOATLIT        shift and go to state 75
+    LEFTPARENTHESES shift and go to state 76
+    NOT             shift and go to state 77
+    ADD             shift and go to state 80
+    SUB             shift and go to state 81
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    arithExpr                      shift and go to state 120
+    term                           shift and go to state 70
+    factor                         shift and go to state 71
+    variable                       shift and go to state 72
+    functionCall                   shift and go to state 73
+    sign                           shift and go to state 78
+    idnestArr                      shift and go to state 79
+    idnest                         shift and go to state 29
+
+state 77
+
+    (56) factor -> NOT . factor
+    (51) factor -> . variable
+    (52) factor -> . functionCall
+    (53) factor -> . INTLIT
+    (54) factor -> . FLOATLIT
+    (55) factor -> . LEFTPARENTHESES arithExpr RIGHTPARENTHESES
+    (56) factor -> . NOT factor
+    (57) factor -> . sign factor
+    (58) variable -> . idnestArr ID indiceArr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (92) sign -> . ADD
+    (93) sign -> . SUB
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    INTLIT          shift and go to state 74
+    FLOATLIT        shift and go to state 75
+    LEFTPARENTHESES shift and go to state 76
+    NOT             shift and go to state 77
+    ADD             shift and go to state 80
+    SUB             shift and go to state 81
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    factor                         shift and go to state 121
+    variable                       shift and go to state 72
+    functionCall                   shift and go to state 73
+    sign                           shift and go to state 78
+    idnestArr                      shift and go to state 79
+    idnest                         shift and go to state 29
+
+state 78
+
+    (57) factor -> sign . factor
+    (51) factor -> . variable
+    (52) factor -> . functionCall
+    (53) factor -> . INTLIT
+    (54) factor -> . FLOATLIT
+    (55) factor -> . LEFTPARENTHESES arithExpr RIGHTPARENTHESES
+    (56) factor -> . NOT factor
+    (57) factor -> . sign factor
+    (58) variable -> . idnestArr ID indiceArr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (92) sign -> . ADD
+    (93) sign -> . SUB
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    INTLIT          shift and go to state 74
+    FLOATLIT        shift and go to state 75
+    LEFTPARENTHESES shift and go to state 76
+    NOT             shift and go to state 77
+    ADD             shift and go to state 80
+    SUB             shift and go to state 81
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    sign                           shift and go to state 78
+    factor                         shift and go to state 122
+    variable                       shift and go to state 72
+    functionCall                   shift and go to state 73
+    idnestArr                      shift and go to state 79
+    idnest                         shift and go to state 29
+
+state 79
+
+    (58) variable -> idnestArr . ID indiceArr
+    (63) functionCall -> idnestArr . ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+
+    ID              shift and go to state 123
+
+
+state 80
+
+    (92) sign -> ADD .
+
+    INTLIT          reduce using rule 92 (sign -> ADD .)
+    FLOATLIT        reduce using rule 92 (sign -> ADD .)
+    LEFTPARENTHESES reduce using rule 92 (sign -> ADD .)
+    NOT             reduce using rule 92 (sign -> ADD .)
+    ADD             reduce using rule 92 (sign -> ADD .)
+    SUB             reduce using rule 92 (sign -> ADD .)
+    ID              reduce using rule 92 (sign -> ADD .)
+
+
+state 81
+
+    (93) sign -> SUB .
+
+    INTLIT          reduce using rule 93 (sign -> SUB .)
+    FLOATLIT        reduce using rule 93 (sign -> SUB .)
+    LEFTPARENTHESES reduce using rule 93 (sign -> SUB .)
+    NOT             reduce using rule 93 (sign -> SUB .)
+    ADD             reduce using rule 93 (sign -> SUB .)
+    SUB             reduce using rule 93 (sign -> SUB .)
+    ID              reduce using rule 93 (sign -> SUB .)
+
+
+state 82
+
+    (97) idnestTail -> LEFTPARENTHESES aParams . RIGHTPARENTHESES idnestTail
+
+    RIGHTPARENTHESES shift and go to state 124
+
+
+state 83
+
+    (71) aParams -> expr . aParamsTailArr
+    (73) aParamsTailArr -> . expr aParamsTailArr
+    (74) aParamsTailArr -> .
+    (42) expr -> . arithExpr
+    (43) expr -> . relExpr
+    (45) arithExpr -> . term arithExprtail
+    (44) relExpr -> . arithExpr relOp arithExpr
+    (48) term -> . factor termTail
+    (51) factor -> . variable
+    (52) factor -> . functionCall
+    (53) factor -> . INTLIT
+    (54) factor -> . FLOATLIT
+    (55) factor -> . LEFTPARENTHESES arithExpr RIGHTPARENTHESES
+    (56) factor -> . NOT factor
+    (57) factor -> . sign factor
+    (58) variable -> . idnestArr ID indiceArr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (92) sign -> . ADD
+    (93) sign -> . SUB
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    RIGHTPARENTHESES reduce using rule 74 (aParamsTailArr -> .)
+    INTLIT          shift and go to state 74
+    FLOATLIT        shift and go to state 75
+    LEFTPARENTHESES shift and go to state 76
+    NOT             shift and go to state 77
+    ADD             shift and go to state 80
+    SUB             shift and go to state 81
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    expr                           shift and go to state 125
+    aParamsTailArr                 shift and go to state 126
+    arithExpr                      shift and go to state 84
+    relExpr                        shift and go to state 85
+    term                           shift and go to state 70
+    factor                         shift and go to state 71
+    variable                       shift and go to state 72
+    functionCall                   shift and go to state 73
+    sign                           shift and go to state 78
+    idnestArr                      shift and go to state 79
+    idnest                         shift and go to state 29
+
+state 84
+
+    (42) expr -> arithExpr .
+    (44) relExpr -> arithExpr . relOp arithExpr
+    (75) relOp -> . EQ
+    (76) relOp -> . NEQ
+    (77) relOp -> . LT
+    (78) relOp -> . GT
+    (79) relOp -> . LEQ
+    (80) relOp -> . GEQ
+
+    INTLIT          reduce using rule 42 (expr -> arithExpr .)
+    FLOATLIT        reduce using rule 42 (expr -> arithExpr .)
+    LEFTPARENTHESES reduce using rule 42 (expr -> arithExpr .)
+    NOT             reduce using rule 42 (expr -> arithExpr .)
+    ADD             reduce using rule 42 (expr -> arithExpr .)
+    SUB             reduce using rule 42 (expr -> arithExpr .)
+    ID              reduce using rule 42 (expr -> arithExpr .)
+    RIGHTPARENTHESES reduce using rule 42 (expr -> arithExpr .)
+    SEMICOLON       reduce using rule 42 (expr -> arithExpr .)
+    EQ              shift and go to state 128
+    NEQ             shift and go to state 129
+    LT              shift and go to state 130
+    GT              shift and go to state 131
+    LEQ             shift and go to state 132
+    GEQ             shift and go to state 133
+
+    relOp                          shift and go to state 127
+
+state 85
+
+    (43) expr -> relExpr .
+
+    INTLIT          reduce using rule 43 (expr -> relExpr .)
+    FLOATLIT        reduce using rule 43 (expr -> relExpr .)
+    LEFTPARENTHESES reduce using rule 43 (expr -> relExpr .)
+    NOT             reduce using rule 43 (expr -> relExpr .)
+    ADD             reduce using rule 43 (expr -> relExpr .)
+    SUB             reduce using rule 43 (expr -> relExpr .)
+    ID              reduce using rule 43 (expr -> relExpr .)
+    RIGHTPARENTHESES reduce using rule 43 (expr -> relExpr .)
+    SEMICOLON       reduce using rule 43 (expr -> relExpr .)
+
+
+state 86
+
+    (31) statement -> IF LEFTPARENTHESES relExpr . RIGHTPARENTHESES THEN statBlock ELSE statBlock SEMICOLON
+
+    RIGHTPARENTHESES shift and go to state 134
+
+
+state 87
+
+    (44) relExpr -> arithExpr . relOp arithExpr
+    (75) relOp -> . EQ
+    (76) relOp -> . NEQ
+    (77) relOp -> . LT
+    (78) relOp -> . GT
+    (79) relOp -> . LEQ
+    (80) relOp -> . GEQ
+
+    EQ              shift and go to state 128
+    NEQ             shift and go to state 129
+    LT              shift and go to state 130
+    GT              shift and go to state 131
+    LEQ             shift and go to state 132
+    GEQ             shift and go to state 133
+
+    relOp                          shift and go to state 127
+
+state 88
+
+    (32) statement -> WHILE LEFTPARENTHESES relExpr . RIGHTPARENTHESES statBlock SEMICOLON
+
+    RIGHTPARENTHESES shift and go to state 135
+
+
+state 89
+
+    (33) statement -> READ LEFTPARENTHESES variable . RIGHTPARENTHESES SEMICOLON
+
+    RIGHTPARENTHESES shift and go to state 136
+
+
+state 90
+
+    (58) variable -> idnestArr . ID indiceArr
+
+    ID              shift and go to state 137
+
+
+state 91
+
+    (37) assignStat -> variable ASSIGN expr .
+
+    SEMICOLON       reduce using rule 37 (assignStat -> variable ASSIGN expr .)
+
+
+state 92
+
+    (34) statement -> WRITE LEFTPARENTHESES expr . RIGHTPARENTHESES SEMICOLON
+
+    RIGHTPARENTHESES shift and go to state 138
+
+
+state 93
+
+    (35) statement -> RETURN LEFTPARENTHESES expr . RIGHTPARENTHESES SEMICOLON
+
+    RIGHTPARENTHESES shift and go to state 139
+
+
+state 94
+
+    (63) functionCall -> idnestArr ID LEFTPARENTHESES . aParams RIGHTPARENTHESES
+    (71) aParams -> . expr aParamsTailArr
+    (72) aParams -> .
+    (42) expr -> . arithExpr
+    (43) expr -> . relExpr
+    (45) arithExpr -> . term arithExprtail
+    (44) relExpr -> . arithExpr relOp arithExpr
+    (48) term -> . factor termTail
+    (51) factor -> . variable
+    (52) factor -> . functionCall
+    (53) factor -> . INTLIT
+    (54) factor -> . FLOATLIT
+    (55) factor -> . LEFTPARENTHESES arithExpr RIGHTPARENTHESES
+    (56) factor -> . NOT factor
+    (57) factor -> . sign factor
+    (58) variable -> . idnestArr ID indiceArr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (92) sign -> . ADD
+    (93) sign -> . SUB
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    RIGHTPARENTHESES reduce using rule 72 (aParams -> .)
+    INTLIT          shift and go to state 74
+    FLOATLIT        shift and go to state 75
+    LEFTPARENTHESES shift and go to state 76
+    NOT             shift and go to state 77
+    ADD             shift and go to state 80
+    SUB             shift and go to state 81
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    idnestArr                      shift and go to state 79
+    aParams                        shift and go to state 140
+    expr                           shift and go to state 83
+    arithExpr                      shift and go to state 84
+    relExpr                        shift and go to state 85
+    term                           shift and go to state 70
+    factor                         shift and go to state 71
+    variable                       shift and go to state 72
+    functionCall                   shift and go to state 73
+    sign                           shift and go to state 78
+    idnest                         shift and go to state 29
+
+state 95
+
+    (58) variable -> idnestArr ID indiceArr .
+
+    ASSIGN          reduce using rule 58 (variable -> idnestArr ID indiceArr .)
+    MUL             reduce using rule 58 (variable -> idnestArr ID indiceArr .)
+    DIV             reduce using rule 58 (variable -> idnestArr ID indiceArr .)
+    AND             reduce using rule 58 (variable -> idnestArr ID indiceArr .)
+    ADD             reduce using rule 58 (variable -> idnestArr ID indiceArr .)
+    SUB             reduce using rule 58 (variable -> idnestArr ID indiceArr .)
+    OR              reduce using rule 58 (variable -> idnestArr ID indiceArr .)
+    RIGHTBRACE      reduce using rule 58 (variable -> idnestArr ID indiceArr .)
+    EQ              reduce using rule 58 (variable -> idnestArr ID indiceArr .)
+    NEQ             reduce using rule 58 (variable -> idnestArr ID indiceArr .)
+    LT              reduce using rule 58 (variable -> idnestArr ID indiceArr .)
+    GT              reduce using rule 58 (variable -> idnestArr ID indiceArr .)
+    LEQ             reduce using rule 58 (variable -> idnestArr ID indiceArr .)
+    GEQ             reduce using rule 58 (variable -> idnestArr ID indiceArr .)
+    INTLIT          reduce using rule 58 (variable -> idnestArr ID indiceArr .)
+    FLOATLIT        reduce using rule 58 (variable -> idnestArr ID indiceArr .)
+    LEFTPARENTHESES reduce using rule 58 (variable -> idnestArr ID indiceArr .)
+    NOT             reduce using rule 58 (variable -> idnestArr ID indiceArr .)
+    ID              reduce using rule 58 (variable -> idnestArr ID indiceArr .)
+    RIGHTPARENTHESES reduce using rule 58 (variable -> idnestArr ID indiceArr .)
+    SEMICOLON       reduce using rule 58 (variable -> idnestArr ID indiceArr .)
+
+
+state 96
+
+    (61) indiceArr -> indice indiceArr .
+
+    ID              reduce using rule 61 (indiceArr -> indice indiceArr .)
+    ASSIGN          reduce using rule 61 (indiceArr -> indice indiceArr .)
+    MUL             reduce using rule 61 (indiceArr -> indice indiceArr .)
+    DIV             reduce using rule 61 (indiceArr -> indice indiceArr .)
+    AND             reduce using rule 61 (indiceArr -> indice indiceArr .)
+    ADD             reduce using rule 61 (indiceArr -> indice indiceArr .)
+    SUB             reduce using rule 61 (indiceArr -> indice indiceArr .)
+    OR              reduce using rule 61 (indiceArr -> indice indiceArr .)
+    RIGHTBRACE      reduce using rule 61 (indiceArr -> indice indiceArr .)
+    EQ              reduce using rule 61 (indiceArr -> indice indiceArr .)
+    NEQ             reduce using rule 61 (indiceArr -> indice indiceArr .)
+    LT              reduce using rule 61 (indiceArr -> indice indiceArr .)
+    GT              reduce using rule 61 (indiceArr -> indice indiceArr .)
+    LEQ             reduce using rule 61 (indiceArr -> indice indiceArr .)
+    GEQ             reduce using rule 61 (indiceArr -> indice indiceArr .)
+    INTLIT          reduce using rule 61 (indiceArr -> indice indiceArr .)
+    FLOATLIT        reduce using rule 61 (indiceArr -> indice indiceArr .)
+    LEFTPARENTHESES reduce using rule 61 (indiceArr -> indice indiceArr .)
+    NOT             reduce using rule 61 (indiceArr -> indice indiceArr .)
+    RIGHTPARENTHESES reduce using rule 61 (indiceArr -> indice indiceArr .)
+    SEMICOLON       reduce using rule 61 (indiceArr -> indice indiceArr .)
+
+
+state 97
+
+    (64) indice -> LEFTBRACE arithExpr . RIGHTBRACE
+
+    RIGHTBRACE      shift and go to state 141
+
+
+state 98
+
+    (67) fParams -> ID . COLON type arraySizeArr fParamsTailArr
+
+    COLON           shift and go to state 142
+
+
+state 99
+
+    (19) funcHead -> FUNCTION idsrArr ID LEFTPARENTHESES fParams . RIGHTPARENTHESES ARROW returnType
+
+    RIGHTPARENTHESES shift and go to state 143
+
+
+state 100
+
+    (21) idsrArr -> ID SR . idsrArr
+    (21) idsrArr -> . ID SR idsrArr
+    (22) idsrArr -> .
+
+  ! shift/reduce conflict for ID resolved as shift
+    ID              shift and go to state 57
+
+  ! ID              [ reduce using rule 22 (idsrArr -> .) ]
+
+    idsrArr                        shift and go to state 59
+
+state 101
+
+    (20) funcHead -> FUNCTION ID SR CONSTRUCTOR LEFTPARENTHESES . fParams RIGHTPARENTHESES
+    (67) fParams -> . ID COLON type arraySizeArr fParamsTailArr
+    (68) fParams -> .
+
+    ID              shift and go to state 98
+    RIGHTPARENTHESES reduce using rule 68 (fParams -> .)
+
+    fParams                        shift and go to state 144
+
+state 102
+
+    (13) memberFuncDecl -> FUNCTION ID . COLON LEFTPARENTHESES fParams RIGHTPARENTHESES ARROW returnType SEMICOLON
+
+    COLON           shift and go to state 145
+
+
+state 103
+
+    (14) memberFuncDecl -> CONSTRUCTOR COLON . LEFTPARENTHESES fParams RIGHTPARENTHESES SEMICOLON
+
+    LEFTPARENTHESES shift and go to state 146
+
+
+state 104
+
+    (15) memberVarDecl -> ATTRIBUTE ID . COLON type arraySizeArr SEMICOLON
+
+    COLON           shift and go to state 147
+
+
+state 105
+
+    (89) type -> ID .
+
+    LEFTPARENTHESES reduce using rule 89 (type -> ID .)
+    LEFTBRACE       reduce using rule 89 (type -> ID .)
+    SEMICOLON       reduce using rule 89 (type -> ID .)
+    COMMA           reduce using rule 89 (type -> ID .)
+    RIGHTPARENTHESES reduce using rule 89 (type -> ID .)
+    LEFTBRACKET     reduce using rule 89 (type -> ID .)
+
+
+state 106
+
+    (28) localVarDecl -> LOCALVAR ID COLON type . arraySizeArr SEMICOLON
+    (29) localVarDecl -> LOCALVAR ID COLON type . LEFTPARENTHESES aParams RIGHTPARENTHESES SEMICOLON
+    (16) arraySizeArr -> . arraySize arraySizeArr
+    (17) arraySizeArr -> .
+    (90) arraySize -> . LEFTBRACE INTLIT RIGHTBRACE
+    (91) arraySize -> . LEFTBRACE RIGHTBRACE
+
+    LEFTPARENTHESES shift and go to state 149
+    SEMICOLON       reduce using rule 17 (arraySizeArr -> .)
+    LEFTBRACE       shift and go to state 151
+
+    arraySizeArr                   shift and go to state 148
+    arraySize                      shift and go to state 150
+
+state 107
+
+    (87) type -> INTEGER .
+
+    LEFTPARENTHESES reduce using rule 87 (type -> INTEGER .)
+    LEFTBRACE       reduce using rule 87 (type -> INTEGER .)
+    SEMICOLON       reduce using rule 87 (type -> INTEGER .)
+    COMMA           reduce using rule 87 (type -> INTEGER .)
+    RIGHTPARENTHESES reduce using rule 87 (type -> INTEGER .)
+    LEFTBRACKET     reduce using rule 87 (type -> INTEGER .)
+
+
+state 108
+
+    (88) type -> FLOAT .
+
+    LEFTPARENTHESES reduce using rule 88 (type -> FLOAT .)
+    LEFTBRACE       reduce using rule 88 (type -> FLOAT .)
+    SEMICOLON       reduce using rule 88 (type -> FLOAT .)
+    COMMA           reduce using rule 88 (type -> FLOAT .)
+    RIGHTPARENTHESES reduce using rule 88 (type -> FLOAT .)
+    LEFTBRACKET     reduce using rule 88 (type -> FLOAT .)
+
+
+state 109
+
+    (96) idnestTail -> LEFTBRACE arithExpr RIGHTBRACE . idnestTail
+    (95) idnestTail -> .
+    (96) idnestTail -> . LEFTBRACE arithExpr RIGHTBRACE idnestTail
+    (97) idnestTail -> . LEFTPARENTHESES aParams RIGHTPARENTHESES idnestTail
+    (98) idnestTail -> . DOT
+
+  ! shift/reduce conflict for LEFTBRACE resolved as shift
+    ID              reduce using rule 95 (idnestTail -> .)
+    LEFTBRACE       shift and go to state 41
+    LEFTPARENTHESES shift and go to state 42
+    DOT             shift and go to state 43
+
+  ! LEFTBRACE       [ reduce using rule 95 (idnestTail -> .) ]
+
+    idnestTail                     shift and go to state 152
+
+state 110
+
+    (45) arithExpr -> term arithExprtail .
+
+    RIGHTBRACE      reduce using rule 45 (arithExpr -> term arithExprtail .)
+    EQ              reduce using rule 45 (arithExpr -> term arithExprtail .)
+    NEQ             reduce using rule 45 (arithExpr -> term arithExprtail .)
+    LT              reduce using rule 45 (arithExpr -> term arithExprtail .)
+    GT              reduce using rule 45 (arithExpr -> term arithExprtail .)
+    LEQ             reduce using rule 45 (arithExpr -> term arithExprtail .)
+    GEQ             reduce using rule 45 (arithExpr -> term arithExprtail .)
+    INTLIT          reduce using rule 45 (arithExpr -> term arithExprtail .)
+    FLOATLIT        reduce using rule 45 (arithExpr -> term arithExprtail .)
+    LEFTPARENTHESES reduce using rule 45 (arithExpr -> term arithExprtail .)
+    NOT             reduce using rule 45 (arithExpr -> term arithExprtail .)
+    ADD             reduce using rule 45 (arithExpr -> term arithExprtail .)
+    SUB             reduce using rule 45 (arithExpr -> term arithExprtail .)
+    ID              reduce using rule 45 (arithExpr -> term arithExprtail .)
+    RIGHTPARENTHESES reduce using rule 45 (arithExpr -> term arithExprtail .)
+    SEMICOLON       reduce using rule 45 (arithExpr -> term arithExprtail .)
+
+
+state 111
+
+    (46) arithExprtail -> addOp . term arithExprtail
+    (48) term -> . factor termTail
+    (51) factor -> . variable
+    (52) factor -> . functionCall
+    (53) factor -> . INTLIT
+    (54) factor -> . FLOATLIT
+    (55) factor -> . LEFTPARENTHESES arithExpr RIGHTPARENTHESES
+    (56) factor -> . NOT factor
+    (57) factor -> . sign factor
+    (58) variable -> . idnestArr ID indiceArr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (92) sign -> . ADD
+    (93) sign -> . SUB
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    INTLIT          shift and go to state 74
+    FLOATLIT        shift and go to state 75
+    LEFTPARENTHESES shift and go to state 76
+    NOT             shift and go to state 77
+    ADD             shift and go to state 80
+    SUB             shift and go to state 81
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    term                           shift and go to state 153
+    factor                         shift and go to state 71
+    variable                       shift and go to state 72
+    functionCall                   shift and go to state 73
+    sign                           shift and go to state 78
+    idnestArr                      shift and go to state 79
+    idnest                         shift and go to state 29
+
+state 112
+
+    (81) addOp -> ADD .
+
+    INTLIT          reduce using rule 81 (addOp -> ADD .)
+    FLOATLIT        reduce using rule 81 (addOp -> ADD .)
+    LEFTPARENTHESES reduce using rule 81 (addOp -> ADD .)
+    NOT             reduce using rule 81 (addOp -> ADD .)
+    ADD             reduce using rule 81 (addOp -> ADD .)
+    SUB             reduce using rule 81 (addOp -> ADD .)
+    ID              reduce using rule 81 (addOp -> ADD .)
+
+
+state 113
+
+    (82) addOp -> SUB .
+
+    INTLIT          reduce using rule 82 (addOp -> SUB .)
+    FLOATLIT        reduce using rule 82 (addOp -> SUB .)
+    LEFTPARENTHESES reduce using rule 82 (addOp -> SUB .)
+    NOT             reduce using rule 82 (addOp -> SUB .)
+    ADD             reduce using rule 82 (addOp -> SUB .)
+    SUB             reduce using rule 82 (addOp -> SUB .)
+    ID              reduce using rule 82 (addOp -> SUB .)
+
+
+state 114
+
+    (83) addOp -> OR .
+
+    INTLIT          reduce using rule 83 (addOp -> OR .)
+    FLOATLIT        reduce using rule 83 (addOp -> OR .)
+    LEFTPARENTHESES reduce using rule 83 (addOp -> OR .)
+    NOT             reduce using rule 83 (addOp -> OR .)
+    ADD             reduce using rule 83 (addOp -> OR .)
+    SUB             reduce using rule 83 (addOp -> OR .)
+    ID              reduce using rule 83 (addOp -> OR .)
+
+
+state 115
+
+    (48) term -> factor termTail .
+
+    ADD             reduce using rule 48 (term -> factor termTail .)
+    SUB             reduce using rule 48 (term -> factor termTail .)
+    OR              reduce using rule 48 (term -> factor termTail .)
+    RIGHTBRACE      reduce using rule 48 (term -> factor termTail .)
+    EQ              reduce using rule 48 (term -> factor termTail .)
+    NEQ             reduce using rule 48 (term -> factor termTail .)
+    LT              reduce using rule 48 (term -> factor termTail .)
+    GT              reduce using rule 48 (term -> factor termTail .)
+    LEQ             reduce using rule 48 (term -> factor termTail .)
+    GEQ             reduce using rule 48 (term -> factor termTail .)
+    INTLIT          reduce using rule 48 (term -> factor termTail .)
+    FLOATLIT        reduce using rule 48 (term -> factor termTail .)
+    LEFTPARENTHESES reduce using rule 48 (term -> factor termTail .)
+    NOT             reduce using rule 48 (term -> factor termTail .)
+    ID              reduce using rule 48 (term -> factor termTail .)
+    RIGHTPARENTHESES reduce using rule 48 (term -> factor termTail .)
+    SEMICOLON       reduce using rule 48 (term -> factor termTail .)
+
+
+state 116
+
+    (49) termTail -> multOp . factor termTail
+    (51) factor -> . variable
+    (52) factor -> . functionCall
+    (53) factor -> . INTLIT
+    (54) factor -> . FLOATLIT
+    (55) factor -> . LEFTPARENTHESES arithExpr RIGHTPARENTHESES
+    (56) factor -> . NOT factor
+    (57) factor -> . sign factor
+    (58) variable -> . idnestArr ID indiceArr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (92) sign -> . ADD
+    (93) sign -> . SUB
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    INTLIT          shift and go to state 74
+    FLOATLIT        shift and go to state 75
+    LEFTPARENTHESES shift and go to state 76
+    NOT             shift and go to state 77
+    ADD             shift and go to state 80
+    SUB             shift and go to state 81
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    factor                         shift and go to state 154
+    variable                       shift and go to state 72
+    functionCall                   shift and go to state 73
+    sign                           shift and go to state 78
+    idnestArr                      shift and go to state 79
+    idnest                         shift and go to state 29
+
+state 117
+
+    (84) multOp -> MUL .
+
+    INTLIT          reduce using rule 84 (multOp -> MUL .)
+    FLOATLIT        reduce using rule 84 (multOp -> MUL .)
+    LEFTPARENTHESES reduce using rule 84 (multOp -> MUL .)
+    NOT             reduce using rule 84 (multOp -> MUL .)
+    ADD             reduce using rule 84 (multOp -> MUL .)
+    SUB             reduce using rule 84 (multOp -> MUL .)
+    ID              reduce using rule 84 (multOp -> MUL .)
+
+
+state 118
+
+    (85) multOp -> DIV .
+
+    INTLIT          reduce using rule 85 (multOp -> DIV .)
+    FLOATLIT        reduce using rule 85 (multOp -> DIV .)
+    LEFTPARENTHESES reduce using rule 85 (multOp -> DIV .)
+    NOT             reduce using rule 85 (multOp -> DIV .)
+    ADD             reduce using rule 85 (multOp -> DIV .)
+    SUB             reduce using rule 85 (multOp -> DIV .)
+    ID              reduce using rule 85 (multOp -> DIV .)
+
+
+state 119
+
+    (86) multOp -> AND .
+
+    INTLIT          reduce using rule 86 (multOp -> AND .)
+    FLOATLIT        reduce using rule 86 (multOp -> AND .)
+    LEFTPARENTHESES reduce using rule 86 (multOp -> AND .)
+    NOT             reduce using rule 86 (multOp -> AND .)
+    ADD             reduce using rule 86 (multOp -> AND .)
+    SUB             reduce using rule 86 (multOp -> AND .)
+    ID              reduce using rule 86 (multOp -> AND .)
+
+
+state 120
+
+    (55) factor -> LEFTPARENTHESES arithExpr . RIGHTPARENTHESES
+
+    RIGHTPARENTHESES shift and go to state 155
+
+
+state 121
+
+    (56) factor -> NOT factor .
+
+    MUL             reduce using rule 56 (factor -> NOT factor .)
+    DIV             reduce using rule 56 (factor -> NOT factor .)
+    AND             reduce using rule 56 (factor -> NOT factor .)
+    ADD             reduce using rule 56 (factor -> NOT factor .)
+    SUB             reduce using rule 56 (factor -> NOT factor .)
+    OR              reduce using rule 56 (factor -> NOT factor .)
+    RIGHTBRACE      reduce using rule 56 (factor -> NOT factor .)
+    EQ              reduce using rule 56 (factor -> NOT factor .)
+    NEQ             reduce using rule 56 (factor -> NOT factor .)
+    LT              reduce using rule 56 (factor -> NOT factor .)
+    GT              reduce using rule 56 (factor -> NOT factor .)
+    LEQ             reduce using rule 56 (factor -> NOT factor .)
+    GEQ             reduce using rule 56 (factor -> NOT factor .)
+    INTLIT          reduce using rule 56 (factor -> NOT factor .)
+    FLOATLIT        reduce using rule 56 (factor -> NOT factor .)
+    LEFTPARENTHESES reduce using rule 56 (factor -> NOT factor .)
+    NOT             reduce using rule 56 (factor -> NOT factor .)
+    ID              reduce using rule 56 (factor -> NOT factor .)
+    RIGHTPARENTHESES reduce using rule 56 (factor -> NOT factor .)
+    SEMICOLON       reduce using rule 56 (factor -> NOT factor .)
+
+
+state 122
+
+    (57) factor -> sign factor .
+
+    MUL             reduce using rule 57 (factor -> sign factor .)
+    DIV             reduce using rule 57 (factor -> sign factor .)
+    AND             reduce using rule 57 (factor -> sign factor .)
+    ADD             reduce using rule 57 (factor -> sign factor .)
+    SUB             reduce using rule 57 (factor -> sign factor .)
+    OR              reduce using rule 57 (factor -> sign factor .)
+    RIGHTBRACE      reduce using rule 57 (factor -> sign factor .)
+    EQ              reduce using rule 57 (factor -> sign factor .)
+    NEQ             reduce using rule 57 (factor -> sign factor .)
+    LT              reduce using rule 57 (factor -> sign factor .)
+    GT              reduce using rule 57 (factor -> sign factor .)
+    LEQ             reduce using rule 57 (factor -> sign factor .)
+    GEQ             reduce using rule 57 (factor -> sign factor .)
+    INTLIT          reduce using rule 57 (factor -> sign factor .)
+    FLOATLIT        reduce using rule 57 (factor -> sign factor .)
+    LEFTPARENTHESES reduce using rule 57 (factor -> sign factor .)
+    NOT             reduce using rule 57 (factor -> sign factor .)
+    ID              reduce using rule 57 (factor -> sign factor .)
+    RIGHTPARENTHESES reduce using rule 57 (factor -> sign factor .)
+    SEMICOLON       reduce using rule 57 (factor -> sign factor .)
+
+
+state 123
+
+    (58) variable -> idnestArr ID . indiceArr
+    (63) functionCall -> idnestArr ID . LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (61) indiceArr -> . indice indiceArr
+    (62) indiceArr -> .
+    (64) indice -> . LEFTBRACE arithExpr RIGHTBRACE
+
+  ! shift/reduce conflict for LEFTPARENTHESES resolved as shift
+    LEFTPARENTHESES shift and go to state 94
+    MUL             reduce using rule 62 (indiceArr -> .)
+    DIV             reduce using rule 62 (indiceArr -> .)
+    AND             reduce using rule 62 (indiceArr -> .)
+    ADD             reduce using rule 62 (indiceArr -> .)
+    SUB             reduce using rule 62 (indiceArr -> .)
+    OR              reduce using rule 62 (indiceArr -> .)
+    RIGHTBRACE      reduce using rule 62 (indiceArr -> .)
+    EQ              reduce using rule 62 (indiceArr -> .)
+    NEQ             reduce using rule 62 (indiceArr -> .)
+    LT              reduce using rule 62 (indiceArr -> .)
+    GT              reduce using rule 62 (indiceArr -> .)
+    LEQ             reduce using rule 62 (indiceArr -> .)
+    GEQ             reduce using rule 62 (indiceArr -> .)
+    INTLIT          reduce using rule 62 (indiceArr -> .)
+    FLOATLIT        reduce using rule 62 (indiceArr -> .)
+    NOT             reduce using rule 62 (indiceArr -> .)
+    ID              reduce using rule 62 (indiceArr -> .)
+    RIGHTPARENTHESES reduce using rule 62 (indiceArr -> .)
+    SEMICOLON       reduce using rule 62 (indiceArr -> .)
+    LEFTBRACE       shift and go to state 55
+
+  ! LEFTPARENTHESES [ reduce using rule 62 (indiceArr -> .) ]
+
+    indiceArr                      shift and go to state 95
+    indice                         shift and go to state 54
+
+state 124
+
+    (97) idnestTail -> LEFTPARENTHESES aParams RIGHTPARENTHESES . idnestTail
+    (95) idnestTail -> .
+    (96) idnestTail -> . LEFTBRACE arithExpr RIGHTBRACE idnestTail
+    (97) idnestTail -> . LEFTPARENTHESES aParams RIGHTPARENTHESES idnestTail
+    (98) idnestTail -> . DOT
+
+  ! shift/reduce conflict for LEFTBRACE resolved as shift
+    ID              reduce using rule 95 (idnestTail -> .)
+    LEFTBRACE       shift and go to state 41
+    LEFTPARENTHESES shift and go to state 42
+    DOT             shift and go to state 43
+
+  ! LEFTBRACE       [ reduce using rule 95 (idnestTail -> .) ]
+
+    idnestTail                     shift and go to state 156
+
+state 125
+
+    (73) aParamsTailArr -> expr . aParamsTailArr
+    (73) aParamsTailArr -> . expr aParamsTailArr
+    (74) aParamsTailArr -> .
+    (42) expr -> . arithExpr
+    (43) expr -> . relExpr
+    (45) arithExpr -> . term arithExprtail
+    (44) relExpr -> . arithExpr relOp arithExpr
+    (48) term -> . factor termTail
+    (51) factor -> . variable
+    (52) factor -> . functionCall
+    (53) factor -> . INTLIT
+    (54) factor -> . FLOATLIT
+    (55) factor -> . LEFTPARENTHESES arithExpr RIGHTPARENTHESES
+    (56) factor -> . NOT factor
+    (57) factor -> . sign factor
+    (58) variable -> . idnestArr ID indiceArr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (92) sign -> . ADD
+    (93) sign -> . SUB
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    RIGHTPARENTHESES reduce using rule 74 (aParamsTailArr -> .)
+    INTLIT          shift and go to state 74
+    FLOATLIT        shift and go to state 75
+    LEFTPARENTHESES shift and go to state 76
+    NOT             shift and go to state 77
+    ADD             shift and go to state 80
+    SUB             shift and go to state 81
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    expr                           shift and go to state 125
+    aParamsTailArr                 shift and go to state 157
+    arithExpr                      shift and go to state 84
+    relExpr                        shift and go to state 85
+    term                           shift and go to state 70
+    factor                         shift and go to state 71
+    variable                       shift and go to state 72
+    functionCall                   shift and go to state 73
+    sign                           shift and go to state 78
+    idnestArr                      shift and go to state 79
+    idnest                         shift and go to state 29
+
+state 126
+
+    (71) aParams -> expr aParamsTailArr .
+
+    RIGHTPARENTHESES reduce using rule 71 (aParams -> expr aParamsTailArr .)
+
+
+state 127
+
+    (44) relExpr -> arithExpr relOp . arithExpr
+    (45) arithExpr -> . term arithExprtail
+    (48) term -> . factor termTail
+    (51) factor -> . variable
+    (52) factor -> . functionCall
+    (53) factor -> . INTLIT
+    (54) factor -> . FLOATLIT
+    (55) factor -> . LEFTPARENTHESES arithExpr RIGHTPARENTHESES
+    (56) factor -> . NOT factor
+    (57) factor -> . sign factor
+    (58) variable -> . idnestArr ID indiceArr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (92) sign -> . ADD
+    (93) sign -> . SUB
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    INTLIT          shift and go to state 74
+    FLOATLIT        shift and go to state 75
+    LEFTPARENTHESES shift and go to state 76
+    NOT             shift and go to state 77
+    ADD             shift and go to state 80
+    SUB             shift and go to state 81
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    arithExpr                      shift and go to state 158
+    term                           shift and go to state 70
+    factor                         shift and go to state 71
+    variable                       shift and go to state 72
+    functionCall                   shift and go to state 73
+    sign                           shift and go to state 78
+    idnestArr                      shift and go to state 79
+    idnest                         shift and go to state 29
+
+state 128
+
+    (75) relOp -> EQ .
+
+    INTLIT          reduce using rule 75 (relOp -> EQ .)
+    FLOATLIT        reduce using rule 75 (relOp -> EQ .)
+    LEFTPARENTHESES reduce using rule 75 (relOp -> EQ .)
+    NOT             reduce using rule 75 (relOp -> EQ .)
+    ADD             reduce using rule 75 (relOp -> EQ .)
+    SUB             reduce using rule 75 (relOp -> EQ .)
+    ID              reduce using rule 75 (relOp -> EQ .)
+
+
+state 129
+
+    (76) relOp -> NEQ .
+
+    INTLIT          reduce using rule 76 (relOp -> NEQ .)
+    FLOATLIT        reduce using rule 76 (relOp -> NEQ .)
+    LEFTPARENTHESES reduce using rule 76 (relOp -> NEQ .)
+    NOT             reduce using rule 76 (relOp -> NEQ .)
+    ADD             reduce using rule 76 (relOp -> NEQ .)
+    SUB             reduce using rule 76 (relOp -> NEQ .)
+    ID              reduce using rule 76 (relOp -> NEQ .)
+
+
+state 130
+
+    (77) relOp -> LT .
+
+    INTLIT          reduce using rule 77 (relOp -> LT .)
+    FLOATLIT        reduce using rule 77 (relOp -> LT .)
+    LEFTPARENTHESES reduce using rule 77 (relOp -> LT .)
+    NOT             reduce using rule 77 (relOp -> LT .)
+    ADD             reduce using rule 77 (relOp -> LT .)
+    SUB             reduce using rule 77 (relOp -> LT .)
+    ID              reduce using rule 77 (relOp -> LT .)
+
+
+state 131
+
+    (78) relOp -> GT .
+
+    INTLIT          reduce using rule 78 (relOp -> GT .)
+    FLOATLIT        reduce using rule 78 (relOp -> GT .)
+    LEFTPARENTHESES reduce using rule 78 (relOp -> GT .)
+    NOT             reduce using rule 78 (relOp -> GT .)
+    ADD             reduce using rule 78 (relOp -> GT .)
+    SUB             reduce using rule 78 (relOp -> GT .)
+    ID              reduce using rule 78 (relOp -> GT .)
+
+
+state 132
+
+    (79) relOp -> LEQ .
+
+    INTLIT          reduce using rule 79 (relOp -> LEQ .)
+    FLOATLIT        reduce using rule 79 (relOp -> LEQ .)
+    LEFTPARENTHESES reduce using rule 79 (relOp -> LEQ .)
+    NOT             reduce using rule 79 (relOp -> LEQ .)
+    ADD             reduce using rule 79 (relOp -> LEQ .)
+    SUB             reduce using rule 79 (relOp -> LEQ .)
+    ID              reduce using rule 79 (relOp -> LEQ .)
+
+
+state 133
+
+    (80) relOp -> GEQ .
+
+    INTLIT          reduce using rule 80 (relOp -> GEQ .)
+    FLOATLIT        reduce using rule 80 (relOp -> GEQ .)
+    LEFTPARENTHESES reduce using rule 80 (relOp -> GEQ .)
+    NOT             reduce using rule 80 (relOp -> GEQ .)
+    ADD             reduce using rule 80 (relOp -> GEQ .)
+    SUB             reduce using rule 80 (relOp -> GEQ .)
+    ID              reduce using rule 80 (relOp -> GEQ .)
+
+
+state 134
+
+    (31) statement -> IF LEFTPARENTHESES relExpr RIGHTPARENTHESES . THEN statBlock ELSE statBlock SEMICOLON
+
+    THEN            shift and go to state 159
+
+
+state 135
+
+    (32) statement -> WHILE LEFTPARENTHESES relExpr RIGHTPARENTHESES . statBlock SEMICOLON
+    (38) statBlock -> . LEFTBRACE statementArr RIGHTBRACE
+    (39) statBlock -> . statement
+    (30) statement -> . assignStat SEMICOLON
+    (31) statement -> . IF LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN statBlock ELSE statBlock SEMICOLON
+    (32) statement -> . WHILE LEFTPARENTHESES relExpr RIGHTPARENTHESES statBlock SEMICOLON
+    (33) statement -> . READ LEFTPARENTHESES variable RIGHTPARENTHESES SEMICOLON
+    (34) statement -> . WRITE LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON
+    (35) statement -> . RETURN LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON
+    (36) statement -> . functionCall SEMICOLON
+    (37) assignStat -> . variable ASSIGN expr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (58) variable -> . idnestArr ID indiceArr
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    LEFTBRACE       shift and go to state 161
+    IF              shift and go to state 21
+    WHILE           shift and go to state 22
+    READ            shift and go to state 23
+    WRITE           shift and go to state 25
+    RETURN          shift and go to state 26
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    statBlock                      shift and go to state 160
+    statement                      shift and go to state 162
+    assignStat                     shift and go to state 20
+    variable                       shift and go to state 24
+    functionCall                   shift and go to state 27
+    idnestArr                      shift and go to state 28
+    idnest                         shift and go to state 29
+
+state 136
+
+    (33) statement -> READ LEFTPARENTHESES variable RIGHTPARENTHESES . SEMICOLON
+
+    SEMICOLON       shift and go to state 163
+
+
+state 137
+
+    (58) variable -> idnestArr ID . indiceArr
+    (61) indiceArr -> . indice indiceArr
+    (62) indiceArr -> .
+    (64) indice -> . LEFTBRACE arithExpr RIGHTBRACE
+
+    RIGHTPARENTHESES reduce using rule 62 (indiceArr -> .)
+    LEFTBRACE       shift and go to state 55
+
+    indiceArr                      shift and go to state 95
+    indice                         shift and go to state 54
+
+state 138
+
+    (34) statement -> WRITE LEFTPARENTHESES expr RIGHTPARENTHESES . SEMICOLON
+
+    SEMICOLON       shift and go to state 164
+
+
+state 139
+
+    (35) statement -> RETURN LEFTPARENTHESES expr RIGHTPARENTHESES . SEMICOLON
+
+    SEMICOLON       shift and go to state 165
+
+
+state 140
+
+    (63) functionCall -> idnestArr ID LEFTPARENTHESES aParams . RIGHTPARENTHESES
+
+    RIGHTPARENTHESES shift and go to state 166
+
+
+state 141
+
+    (64) indice -> LEFTBRACE arithExpr RIGHTBRACE .
+
+    LEFTBRACE       reduce using rule 64 (indice -> LEFTBRACE arithExpr RIGHTBRACE .)
+    ID              reduce using rule 64 (indice -> LEFTBRACE arithExpr RIGHTBRACE .)
+    ASSIGN          reduce using rule 64 (indice -> LEFTBRACE arithExpr RIGHTBRACE .)
+    MUL             reduce using rule 64 (indice -> LEFTBRACE arithExpr RIGHTBRACE .)
+    DIV             reduce using rule 64 (indice -> LEFTBRACE arithExpr RIGHTBRACE .)
+    AND             reduce using rule 64 (indice -> LEFTBRACE arithExpr RIGHTBRACE .)
+    ADD             reduce using rule 64 (indice -> LEFTBRACE arithExpr RIGHTBRACE .)
+    SUB             reduce using rule 64 (indice -> LEFTBRACE arithExpr RIGHTBRACE .)
+    OR              reduce using rule 64 (indice -> LEFTBRACE arithExpr RIGHTBRACE .)
+    RIGHTBRACE      reduce using rule 64 (indice -> LEFTBRACE arithExpr RIGHTBRACE .)
+    EQ              reduce using rule 64 (indice -> LEFTBRACE arithExpr RIGHTBRACE .)
+    NEQ             reduce using rule 64 (indice -> LEFTBRACE arithExpr RIGHTBRACE .)
+    LT              reduce using rule 64 (indice -> LEFTBRACE arithExpr RIGHTBRACE .)
+    GT              reduce using rule 64 (indice -> LEFTBRACE arithExpr RIGHTBRACE .)
+    LEQ             reduce using rule 64 (indice -> LEFTBRACE arithExpr RIGHTBRACE .)
+    GEQ             reduce using rule 64 (indice -> LEFTBRACE arithExpr RIGHTBRACE .)
+    INTLIT          reduce using rule 64 (indice -> LEFTBRACE arithExpr RIGHTBRACE .)
+    FLOATLIT        reduce using rule 64 (indice -> LEFTBRACE arithExpr RIGHTBRACE .)
+    LEFTPARENTHESES reduce using rule 64 (indice -> LEFTBRACE arithExpr RIGHTBRACE .)
+    NOT             reduce using rule 64 (indice -> LEFTBRACE arithExpr RIGHTBRACE .)
+    RIGHTPARENTHESES reduce using rule 64 (indice -> LEFTBRACE arithExpr RIGHTBRACE .)
+    SEMICOLON       reduce using rule 64 (indice -> LEFTBRACE arithExpr RIGHTBRACE .)
+
+
+state 142
+
+    (67) fParams -> ID COLON . type arraySizeArr fParamsTailArr
+    (87) type -> . INTEGER
+    (88) type -> . FLOAT
+    (89) type -> . ID
+
+    INTEGER         shift and go to state 107
+    FLOAT           shift and go to state 108
+    ID              shift and go to state 105
+
+    type                           shift and go to state 167
+
+state 143
+
+    (19) funcHead -> FUNCTION idsrArr ID LEFTPARENTHESES fParams RIGHTPARENTHESES . ARROW returnType
+
+    ARROW           shift and go to state 168
+
+
+state 144
+
+    (20) funcHead -> FUNCTION ID SR CONSTRUCTOR LEFTPARENTHESES fParams . RIGHTPARENTHESES
+
+    RIGHTPARENTHESES shift and go to state 169
+
+
+state 145
+
+    (13) memberFuncDecl -> FUNCTION ID COLON . LEFTPARENTHESES fParams RIGHTPARENTHESES ARROW returnType SEMICOLON
+
+    LEFTPARENTHESES shift and go to state 170
+
+
+state 146
+
+    (14) memberFuncDecl -> CONSTRUCTOR COLON LEFTPARENTHESES . fParams RIGHTPARENTHESES SEMICOLON
+    (67) fParams -> . ID COLON type arraySizeArr fParamsTailArr
+    (68) fParams -> .
+
+    ID              shift and go to state 98
+    RIGHTPARENTHESES reduce using rule 68 (fParams -> .)
+
+    fParams                        shift and go to state 171
+
+state 147
+
+    (15) memberVarDecl -> ATTRIBUTE ID COLON . type arraySizeArr SEMICOLON
+    (87) type -> . INTEGER
+    (88) type -> . FLOAT
+    (89) type -> . ID
+
+    INTEGER         shift and go to state 107
+    FLOAT           shift and go to state 108
+    ID              shift and go to state 105
+
+    type                           shift and go to state 172
+
+state 148
+
+    (28) localVarDecl -> LOCALVAR ID COLON type arraySizeArr . SEMICOLON
+
+    SEMICOLON       shift and go to state 173
+
+
+state 149
+
+    (29) localVarDecl -> LOCALVAR ID COLON type LEFTPARENTHESES . aParams RIGHTPARENTHESES SEMICOLON
+    (71) aParams -> . expr aParamsTailArr
+    (72) aParams -> .
+    (42) expr -> . arithExpr
+    (43) expr -> . relExpr
+    (45) arithExpr -> . term arithExprtail
+    (44) relExpr -> . arithExpr relOp arithExpr
+    (48) term -> . factor termTail
+    (51) factor -> . variable
+    (52) factor -> . functionCall
+    (53) factor -> . INTLIT
+    (54) factor -> . FLOATLIT
+    (55) factor -> . LEFTPARENTHESES arithExpr RIGHTPARENTHESES
+    (56) factor -> . NOT factor
+    (57) factor -> . sign factor
+    (58) variable -> . idnestArr ID indiceArr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (92) sign -> . ADD
+    (93) sign -> . SUB
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    RIGHTPARENTHESES reduce using rule 72 (aParams -> .)
+    INTLIT          shift and go to state 74
+    FLOATLIT        shift and go to state 75
+    LEFTPARENTHESES shift and go to state 76
+    NOT             shift and go to state 77
+    ADD             shift and go to state 80
+    SUB             shift and go to state 81
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    aParams                        shift and go to state 174
+    expr                           shift and go to state 83
+    arithExpr                      shift and go to state 84
+    relExpr                        shift and go to state 85
+    term                           shift and go to state 70
+    factor                         shift and go to state 71
+    variable                       shift and go to state 72
+    functionCall                   shift and go to state 73
+    sign                           shift and go to state 78
+    idnestArr                      shift and go to state 79
+    idnest                         shift and go to state 29
+
+state 150
+
+    (16) arraySizeArr -> arraySize . arraySizeArr
+    (16) arraySizeArr -> . arraySize arraySizeArr
+    (17) arraySizeArr -> .
+    (90) arraySize -> . LEFTBRACE INTLIT RIGHTBRACE
+    (91) arraySize -> . LEFTBRACE RIGHTBRACE
+
+    SEMICOLON       reduce using rule 17 (arraySizeArr -> .)
+    COMMA           reduce using rule 17 (arraySizeArr -> .)
+    RIGHTPARENTHESES reduce using rule 17 (arraySizeArr -> .)
+    LEFTBRACE       shift and go to state 151
+
+    arraySize                      shift and go to state 150
+    arraySizeArr                   shift and go to state 175
+
+state 151
+
+    (90) arraySize -> LEFTBRACE . INTLIT RIGHTBRACE
+    (91) arraySize -> LEFTBRACE . RIGHTBRACE
+
+    INTLIT          shift and go to state 176
+    RIGHTBRACE      shift and go to state 177
+
+
+state 152
+
+    (96) idnestTail -> LEFTBRACE arithExpr RIGHTBRACE idnestTail .
+
+    LEFTBRACE       reduce using rule 96 (idnestTail -> LEFTBRACE arithExpr RIGHTBRACE idnestTail .)
+    ID              reduce using rule 96 (idnestTail -> LEFTBRACE arithExpr RIGHTBRACE idnestTail .)
+
+
+state 153
+
+    (46) arithExprtail -> addOp term . arithExprtail
+    (46) arithExprtail -> . addOp term arithExprtail
+    (47) arithExprtail -> .
+    (81) addOp -> . ADD
+    (82) addOp -> . SUB
+    (83) addOp -> . OR
+
+  ! shift/reduce conflict for ADD resolved as shift
+  ! shift/reduce conflict for SUB resolved as shift
+    RIGHTBRACE      reduce using rule 47 (arithExprtail -> .)
+    EQ              reduce using rule 47 (arithExprtail -> .)
+    NEQ             reduce using rule 47 (arithExprtail -> .)
+    LT              reduce using rule 47 (arithExprtail -> .)
+    GT              reduce using rule 47 (arithExprtail -> .)
+    LEQ             reduce using rule 47 (arithExprtail -> .)
+    GEQ             reduce using rule 47 (arithExprtail -> .)
+    INTLIT          reduce using rule 47 (arithExprtail -> .)
+    FLOATLIT        reduce using rule 47 (arithExprtail -> .)
+    LEFTPARENTHESES reduce using rule 47 (arithExprtail -> .)
+    NOT             reduce using rule 47 (arithExprtail -> .)
+    ID              reduce using rule 47 (arithExprtail -> .)
+    RIGHTPARENTHESES reduce using rule 47 (arithExprtail -> .)
+    SEMICOLON       reduce using rule 47 (arithExprtail -> .)
+    ADD             shift and go to state 112
+    SUB             shift and go to state 113
+    OR              shift and go to state 114
+
+  ! ADD             [ reduce using rule 47 (arithExprtail -> .) ]
+  ! SUB             [ reduce using rule 47 (arithExprtail -> .) ]
+
+    addOp                          shift and go to state 111
+    arithExprtail                  shift and go to state 178
+
+state 154
+
+    (49) termTail -> multOp factor . termTail
+    (49) termTail -> . multOp factor termTail
+    (50) termTail -> .
+    (84) multOp -> . MUL
+    (85) multOp -> . DIV
+    (86) multOp -> . AND
+
+    ADD             reduce using rule 50 (termTail -> .)
+    SUB             reduce using rule 50 (termTail -> .)
+    OR              reduce using rule 50 (termTail -> .)
+    RIGHTBRACE      reduce using rule 50 (termTail -> .)
+    EQ              reduce using rule 50 (termTail -> .)
+    NEQ             reduce using rule 50 (termTail -> .)
+    LT              reduce using rule 50 (termTail -> .)
+    GT              reduce using rule 50 (termTail -> .)
+    LEQ             reduce using rule 50 (termTail -> .)
+    GEQ             reduce using rule 50 (termTail -> .)
+    INTLIT          reduce using rule 50 (termTail -> .)
+    FLOATLIT        reduce using rule 50 (termTail -> .)
+    LEFTPARENTHESES reduce using rule 50 (termTail -> .)
+    NOT             reduce using rule 50 (termTail -> .)
+    ID              reduce using rule 50 (termTail -> .)
+    RIGHTPARENTHESES reduce using rule 50 (termTail -> .)
+    SEMICOLON       reduce using rule 50 (termTail -> .)
+    MUL             shift and go to state 117
+    DIV             shift and go to state 118
+    AND             shift and go to state 119
+
+    multOp                         shift and go to state 116
+    termTail                       shift and go to state 179
+
+state 155
+
+    (55) factor -> LEFTPARENTHESES arithExpr RIGHTPARENTHESES .
+
+    MUL             reduce using rule 55 (factor -> LEFTPARENTHESES arithExpr RIGHTPARENTHESES .)
+    DIV             reduce using rule 55 (factor -> LEFTPARENTHESES arithExpr RIGHTPARENTHESES .)
+    AND             reduce using rule 55 (factor -> LEFTPARENTHESES arithExpr RIGHTPARENTHESES .)
+    ADD             reduce using rule 55 (factor -> LEFTPARENTHESES arithExpr RIGHTPARENTHESES .)
+    SUB             reduce using rule 55 (factor -> LEFTPARENTHESES arithExpr RIGHTPARENTHESES .)
+    OR              reduce using rule 55 (factor -> LEFTPARENTHESES arithExpr RIGHTPARENTHESES .)
+    RIGHTBRACE      reduce using rule 55 (factor -> LEFTPARENTHESES arithExpr RIGHTPARENTHESES .)
+    EQ              reduce using rule 55 (factor -> LEFTPARENTHESES arithExpr RIGHTPARENTHESES .)
+    NEQ             reduce using rule 55 (factor -> LEFTPARENTHESES arithExpr RIGHTPARENTHESES .)
+    LT              reduce using rule 55 (factor -> LEFTPARENTHESES arithExpr RIGHTPARENTHESES .)
+    GT              reduce using rule 55 (factor -> LEFTPARENTHESES arithExpr RIGHTPARENTHESES .)
+    LEQ             reduce using rule 55 (factor -> LEFTPARENTHESES arithExpr RIGHTPARENTHESES .)
+    GEQ             reduce using rule 55 (factor -> LEFTPARENTHESES arithExpr RIGHTPARENTHESES .)
+    INTLIT          reduce using rule 55 (factor -> LEFTPARENTHESES arithExpr RIGHTPARENTHESES .)
+    FLOATLIT        reduce using rule 55 (factor -> LEFTPARENTHESES arithExpr RIGHTPARENTHESES .)
+    LEFTPARENTHESES reduce using rule 55 (factor -> LEFTPARENTHESES arithExpr RIGHTPARENTHESES .)
+    NOT             reduce using rule 55 (factor -> LEFTPARENTHESES arithExpr RIGHTPARENTHESES .)
+    ID              reduce using rule 55 (factor -> LEFTPARENTHESES arithExpr RIGHTPARENTHESES .)
+    RIGHTPARENTHESES reduce using rule 55 (factor -> LEFTPARENTHESES arithExpr RIGHTPARENTHESES .)
+    SEMICOLON       reduce using rule 55 (factor -> LEFTPARENTHESES arithExpr RIGHTPARENTHESES .)
+
+
+state 156
+
+    (97) idnestTail -> LEFTPARENTHESES aParams RIGHTPARENTHESES idnestTail .
+
+    LEFTBRACE       reduce using rule 97 (idnestTail -> LEFTPARENTHESES aParams RIGHTPARENTHESES idnestTail .)
+    ID              reduce using rule 97 (idnestTail -> LEFTPARENTHESES aParams RIGHTPARENTHESES idnestTail .)
+
+
+state 157
+
+    (73) aParamsTailArr -> expr aParamsTailArr .
+
+    RIGHTPARENTHESES reduce using rule 73 (aParamsTailArr -> expr aParamsTailArr .)
+
+
+state 158
+
+    (44) relExpr -> arithExpr relOp arithExpr .
+
+    INTLIT          reduce using rule 44 (relExpr -> arithExpr relOp arithExpr .)
+    FLOATLIT        reduce using rule 44 (relExpr -> arithExpr relOp arithExpr .)
+    LEFTPARENTHESES reduce using rule 44 (relExpr -> arithExpr relOp arithExpr .)
+    NOT             reduce using rule 44 (relExpr -> arithExpr relOp arithExpr .)
+    ADD             reduce using rule 44 (relExpr -> arithExpr relOp arithExpr .)
+    SUB             reduce using rule 44 (relExpr -> arithExpr relOp arithExpr .)
+    ID              reduce using rule 44 (relExpr -> arithExpr relOp arithExpr .)
+    RIGHTPARENTHESES reduce using rule 44 (relExpr -> arithExpr relOp arithExpr .)
+    SEMICOLON       reduce using rule 44 (relExpr -> arithExpr relOp arithExpr .)
+
+
+state 159
+
+    (31) statement -> IF LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN . statBlock ELSE statBlock SEMICOLON
+    (38) statBlock -> . LEFTBRACE statementArr RIGHTBRACE
+    (39) statBlock -> . statement
+    (30) statement -> . assignStat SEMICOLON
+    (31) statement -> . IF LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN statBlock ELSE statBlock SEMICOLON
+    (32) statement -> . WHILE LEFTPARENTHESES relExpr RIGHTPARENTHESES statBlock SEMICOLON
+    (33) statement -> . READ LEFTPARENTHESES variable RIGHTPARENTHESES SEMICOLON
+    (34) statement -> . WRITE LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON
+    (35) statement -> . RETURN LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON
+    (36) statement -> . functionCall SEMICOLON
+    (37) assignStat -> . variable ASSIGN expr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (58) variable -> . idnestArr ID indiceArr
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    LEFTBRACE       shift and go to state 161
+    IF              shift and go to state 21
+    WHILE           shift and go to state 22
+    READ            shift and go to state 23
+    WRITE           shift and go to state 25
+    RETURN          shift and go to state 26
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    statBlock                      shift and go to state 180
+    statement                      shift and go to state 162
+    assignStat                     shift and go to state 20
+    variable                       shift and go to state 24
+    functionCall                   shift and go to state 27
+    idnestArr                      shift and go to state 28
+    idnest                         shift and go to state 29
+
+state 160
+
+    (32) statement -> WHILE LEFTPARENTHESES relExpr RIGHTPARENTHESES statBlock . SEMICOLON
+
+    SEMICOLON       shift and go to state 181
+
+
+state 161
+
+    (38) statBlock -> LEFTBRACE . statementArr RIGHTBRACE
+    (40) statementArr -> . statement statementArr
+    (41) statementArr -> .
+    (30) statement -> . assignStat SEMICOLON
+    (31) statement -> . IF LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN statBlock ELSE statBlock SEMICOLON
+    (32) statement -> . WHILE LEFTPARENTHESES relExpr RIGHTPARENTHESES statBlock SEMICOLON
+    (33) statement -> . READ LEFTPARENTHESES variable RIGHTPARENTHESES SEMICOLON
+    (34) statement -> . WRITE LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON
+    (35) statement -> . RETURN LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON
+    (36) statement -> . functionCall SEMICOLON
+    (37) assignStat -> . variable ASSIGN expr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (58) variable -> . idnestArr ID indiceArr
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    RIGHTBRACE      reduce using rule 41 (statementArr -> .)
+    IF              shift and go to state 21
+    WHILE           shift and go to state 22
+    READ            shift and go to state 23
+    WRITE           shift and go to state 25
+    RETURN          shift and go to state 26
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    statementArr                   shift and go to state 182
+    statement                      shift and go to state 183
+    assignStat                     shift and go to state 20
+    variable                       shift and go to state 24
+    functionCall                   shift and go to state 27
+    idnestArr                      shift and go to state 28
+    idnest                         shift and go to state 29
+
+state 162
+
+    (39) statBlock -> statement .
+
+    SEMICOLON       reduce using rule 39 (statBlock -> statement .)
+    ELSE            reduce using rule 39 (statBlock -> statement .)
+
+
+state 163
+
+    (33) statement -> READ LEFTPARENTHESES variable RIGHTPARENTHESES SEMICOLON .
+
+    LOCALVAR        reduce using rule 33 (statement -> READ LEFTPARENTHESES variable RIGHTPARENTHESES SEMICOLON .)
+    IF              reduce using rule 33 (statement -> READ LEFTPARENTHESES variable RIGHTPARENTHESES SEMICOLON .)
+    WHILE           reduce using rule 33 (statement -> READ LEFTPARENTHESES variable RIGHTPARENTHESES SEMICOLON .)
+    READ            reduce using rule 33 (statement -> READ LEFTPARENTHESES variable RIGHTPARENTHESES SEMICOLON .)
+    WRITE           reduce using rule 33 (statement -> READ LEFTPARENTHESES variable RIGHTPARENTHESES SEMICOLON .)
+    RETURN          reduce using rule 33 (statement -> READ LEFTPARENTHESES variable RIGHTPARENTHESES SEMICOLON .)
+    ID              reduce using rule 33 (statement -> READ LEFTPARENTHESES variable RIGHTPARENTHESES SEMICOLON .)
+    RIGHTBRACKET    reduce using rule 33 (statement -> READ LEFTPARENTHESES variable RIGHTPARENTHESES SEMICOLON .)
+    SEMICOLON       reduce using rule 33 (statement -> READ LEFTPARENTHESES variable RIGHTPARENTHESES SEMICOLON .)
+    ELSE            reduce using rule 33 (statement -> READ LEFTPARENTHESES variable RIGHTPARENTHESES SEMICOLON .)
+    RIGHTBRACE      reduce using rule 33 (statement -> READ LEFTPARENTHESES variable RIGHTPARENTHESES SEMICOLON .)
+
+
+state 164
+
+    (34) statement -> WRITE LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON .
+
+    LOCALVAR        reduce using rule 34 (statement -> WRITE LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON .)
+    IF              reduce using rule 34 (statement -> WRITE LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON .)
+    WHILE           reduce using rule 34 (statement -> WRITE LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON .)
+    READ            reduce using rule 34 (statement -> WRITE LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON .)
+    WRITE           reduce using rule 34 (statement -> WRITE LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON .)
+    RETURN          reduce using rule 34 (statement -> WRITE LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON .)
+    ID              reduce using rule 34 (statement -> WRITE LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON .)
+    RIGHTBRACKET    reduce using rule 34 (statement -> WRITE LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON .)
+    SEMICOLON       reduce using rule 34 (statement -> WRITE LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON .)
+    ELSE            reduce using rule 34 (statement -> WRITE LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON .)
+    RIGHTBRACE      reduce using rule 34 (statement -> WRITE LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON .)
+
+
+state 165
+
+    (35) statement -> RETURN LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON .
+
+    LOCALVAR        reduce using rule 35 (statement -> RETURN LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON .)
+    IF              reduce using rule 35 (statement -> RETURN LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON .)
+    WHILE           reduce using rule 35 (statement -> RETURN LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON .)
+    READ            reduce using rule 35 (statement -> RETURN LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON .)
+    WRITE           reduce using rule 35 (statement -> RETURN LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON .)
+    RETURN          reduce using rule 35 (statement -> RETURN LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON .)
+    ID              reduce using rule 35 (statement -> RETURN LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON .)
+    RIGHTBRACKET    reduce using rule 35 (statement -> RETURN LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON .)
+    SEMICOLON       reduce using rule 35 (statement -> RETURN LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON .)
+    ELSE            reduce using rule 35 (statement -> RETURN LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON .)
+    RIGHTBRACE      reduce using rule 35 (statement -> RETURN LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON .)
+
+
+state 166
+
+    (63) functionCall -> idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES .
+
+    SEMICOLON       reduce using rule 63 (functionCall -> idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES .)
+    MUL             reduce using rule 63 (functionCall -> idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES .)
+    DIV             reduce using rule 63 (functionCall -> idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES .)
+    AND             reduce using rule 63 (functionCall -> idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES .)
+    ADD             reduce using rule 63 (functionCall -> idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES .)
+    SUB             reduce using rule 63 (functionCall -> idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES .)
+    OR              reduce using rule 63 (functionCall -> idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES .)
+    RIGHTBRACE      reduce using rule 63 (functionCall -> idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES .)
+    EQ              reduce using rule 63 (functionCall -> idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES .)
+    NEQ             reduce using rule 63 (functionCall -> idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES .)
+    LT              reduce using rule 63 (functionCall -> idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES .)
+    GT              reduce using rule 63 (functionCall -> idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES .)
+    LEQ             reduce using rule 63 (functionCall -> idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES .)
+    GEQ             reduce using rule 63 (functionCall -> idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES .)
+    INTLIT          reduce using rule 63 (functionCall -> idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES .)
+    FLOATLIT        reduce using rule 63 (functionCall -> idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES .)
+    LEFTPARENTHESES reduce using rule 63 (functionCall -> idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES .)
+    NOT             reduce using rule 63 (functionCall -> idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES .)
+    ID              reduce using rule 63 (functionCall -> idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES .)
+    RIGHTPARENTHESES reduce using rule 63 (functionCall -> idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES .)
+
+
+state 167
+
+    (67) fParams -> ID COLON type . arraySizeArr fParamsTailArr
+    (16) arraySizeArr -> . arraySize arraySizeArr
+    (17) arraySizeArr -> .
+    (90) arraySize -> . LEFTBRACE INTLIT RIGHTBRACE
+    (91) arraySize -> . LEFTBRACE RIGHTBRACE
+
+    COMMA           reduce using rule 17 (arraySizeArr -> .)
+    RIGHTPARENTHESES reduce using rule 17 (arraySizeArr -> .)
+    LEFTBRACE       shift and go to state 151
+
+    arraySizeArr                   shift and go to state 184
+    arraySize                      shift and go to state 150
+
+state 168
+
+    (19) funcHead -> FUNCTION idsrArr ID LEFTPARENTHESES fParams RIGHTPARENTHESES ARROW . returnType
+    (65) returnType -> . type
+    (66) returnType -> . VOID
+    (87) type -> . INTEGER
+    (88) type -> . FLOAT
+    (89) type -> . ID
+
+    VOID            shift and go to state 187
+    INTEGER         shift and go to state 107
+    FLOAT           shift and go to state 108
+    ID              shift and go to state 105
+
+    returnType                     shift and go to state 185
+    type                           shift and go to state 186
+
+state 169
+
+    (20) funcHead -> FUNCTION ID SR CONSTRUCTOR LEFTPARENTHESES fParams RIGHTPARENTHESES .
+
+    LEFTBRACKET     reduce using rule 20 (funcHead -> FUNCTION ID SR CONSTRUCTOR LEFTPARENTHESES fParams RIGHTPARENTHESES .)
+
+
+state 170
+
+    (13) memberFuncDecl -> FUNCTION ID COLON LEFTPARENTHESES . fParams RIGHTPARENTHESES ARROW returnType SEMICOLON
+    (67) fParams -> . ID COLON type arraySizeArr fParamsTailArr
+    (68) fParams -> .
+
+    ID              shift and go to state 98
+    RIGHTPARENTHESES reduce using rule 68 (fParams -> .)
+
+    fParams                        shift and go to state 188
+
+state 171
+
+    (14) memberFuncDecl -> CONSTRUCTOR COLON LEFTPARENTHESES fParams . RIGHTPARENTHESES SEMICOLON
+
+    RIGHTPARENTHESES shift and go to state 189
+
+
+state 172
+
+    (15) memberVarDecl -> ATTRIBUTE ID COLON type . arraySizeArr SEMICOLON
+    (16) arraySizeArr -> . arraySize arraySizeArr
+    (17) arraySizeArr -> .
+    (90) arraySize -> . LEFTBRACE INTLIT RIGHTBRACE
+    (91) arraySize -> . LEFTBRACE RIGHTBRACE
+
+    SEMICOLON       reduce using rule 17 (arraySizeArr -> .)
+    LEFTBRACE       shift and go to state 151
+
+    arraySizeArr                   shift and go to state 190
+    arraySize                      shift and go to state 150
+
+state 173
+
+    (28) localVarDecl -> LOCALVAR ID COLON type arraySizeArr SEMICOLON .
+
+    LOCALVAR        reduce using rule 28 (localVarDecl -> LOCALVAR ID COLON type arraySizeArr SEMICOLON .)
+    IF              reduce using rule 28 (localVarDecl -> LOCALVAR ID COLON type arraySizeArr SEMICOLON .)
+    WHILE           reduce using rule 28 (localVarDecl -> LOCALVAR ID COLON type arraySizeArr SEMICOLON .)
+    READ            reduce using rule 28 (localVarDecl -> LOCALVAR ID COLON type arraySizeArr SEMICOLON .)
+    WRITE           reduce using rule 28 (localVarDecl -> LOCALVAR ID COLON type arraySizeArr SEMICOLON .)
+    RETURN          reduce using rule 28 (localVarDecl -> LOCALVAR ID COLON type arraySizeArr SEMICOLON .)
+    ID              reduce using rule 28 (localVarDecl -> LOCALVAR ID COLON type arraySizeArr SEMICOLON .)
+    RIGHTBRACKET    reduce using rule 28 (localVarDecl -> LOCALVAR ID COLON type arraySizeArr SEMICOLON .)
+
+
+state 174
+
+    (29) localVarDecl -> LOCALVAR ID COLON type LEFTPARENTHESES aParams . RIGHTPARENTHESES SEMICOLON
+
+    RIGHTPARENTHESES shift and go to state 191
+
+
+state 175
+
+    (16) arraySizeArr -> arraySize arraySizeArr .
+
+    SEMICOLON       reduce using rule 16 (arraySizeArr -> arraySize arraySizeArr .)
+    COMMA           reduce using rule 16 (arraySizeArr -> arraySize arraySizeArr .)
+    RIGHTPARENTHESES reduce using rule 16 (arraySizeArr -> arraySize arraySizeArr .)
+
+
+state 176
+
+    (90) arraySize -> LEFTBRACE INTLIT . RIGHTBRACE
+
+    RIGHTBRACE      shift and go to state 192
+
+
+state 177
+
+    (91) arraySize -> LEFTBRACE RIGHTBRACE .
+
+    LEFTBRACE       reduce using rule 91 (arraySize -> LEFTBRACE RIGHTBRACE .)
+    SEMICOLON       reduce using rule 91 (arraySize -> LEFTBRACE RIGHTBRACE .)
+    COMMA           reduce using rule 91 (arraySize -> LEFTBRACE RIGHTBRACE .)
+    RIGHTPARENTHESES reduce using rule 91 (arraySize -> LEFTBRACE RIGHTBRACE .)
+
+
+state 178
+
+    (46) arithExprtail -> addOp term arithExprtail .
+
+    RIGHTBRACE      reduce using rule 46 (arithExprtail -> addOp term arithExprtail .)
+    EQ              reduce using rule 46 (arithExprtail -> addOp term arithExprtail .)
+    NEQ             reduce using rule 46 (arithExprtail -> addOp term arithExprtail .)
+    LT              reduce using rule 46 (arithExprtail -> addOp term arithExprtail .)
+    GT              reduce using rule 46 (arithExprtail -> addOp term arithExprtail .)
+    LEQ             reduce using rule 46 (arithExprtail -> addOp term arithExprtail .)
+    GEQ             reduce using rule 46 (arithExprtail -> addOp term arithExprtail .)
+    INTLIT          reduce using rule 46 (arithExprtail -> addOp term arithExprtail .)
+    FLOATLIT        reduce using rule 46 (arithExprtail -> addOp term arithExprtail .)
+    LEFTPARENTHESES reduce using rule 46 (arithExprtail -> addOp term arithExprtail .)
+    NOT             reduce using rule 46 (arithExprtail -> addOp term arithExprtail .)
+    ADD             reduce using rule 46 (arithExprtail -> addOp term arithExprtail .)
+    SUB             reduce using rule 46 (arithExprtail -> addOp term arithExprtail .)
+    ID              reduce using rule 46 (arithExprtail -> addOp term arithExprtail .)
+    RIGHTPARENTHESES reduce using rule 46 (arithExprtail -> addOp term arithExprtail .)
+    SEMICOLON       reduce using rule 46 (arithExprtail -> addOp term arithExprtail .)
+
+
+state 179
+
+    (49) termTail -> multOp factor termTail .
+
+    ADD             reduce using rule 49 (termTail -> multOp factor termTail .)
+    SUB             reduce using rule 49 (termTail -> multOp factor termTail .)
+    OR              reduce using rule 49 (termTail -> multOp factor termTail .)
+    RIGHTBRACE      reduce using rule 49 (termTail -> multOp factor termTail .)
+    EQ              reduce using rule 49 (termTail -> multOp factor termTail .)
+    NEQ             reduce using rule 49 (termTail -> multOp factor termTail .)
+    LT              reduce using rule 49 (termTail -> multOp factor termTail .)
+    GT              reduce using rule 49 (termTail -> multOp factor termTail .)
+    LEQ             reduce using rule 49 (termTail -> multOp factor termTail .)
+    GEQ             reduce using rule 49 (termTail -> multOp factor termTail .)
+    INTLIT          reduce using rule 49 (termTail -> multOp factor termTail .)
+    FLOATLIT        reduce using rule 49 (termTail -> multOp factor termTail .)
+    LEFTPARENTHESES reduce using rule 49 (termTail -> multOp factor termTail .)
+    NOT             reduce using rule 49 (termTail -> multOp factor termTail .)
+    ID              reduce using rule 49 (termTail -> multOp factor termTail .)
+    RIGHTPARENTHESES reduce using rule 49 (termTail -> multOp factor termTail .)
+    SEMICOLON       reduce using rule 49 (termTail -> multOp factor termTail .)
+
+
+state 180
+
+    (31) statement -> IF LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN statBlock . ELSE statBlock SEMICOLON
+
+    ELSE            shift and go to state 193
+
+
+state 181
+
+    (32) statement -> WHILE LEFTPARENTHESES relExpr RIGHTPARENTHESES statBlock SEMICOLON .
+
+    LOCALVAR        reduce using rule 32 (statement -> WHILE LEFTPARENTHESES relExpr RIGHTPARENTHESES statBlock SEMICOLON .)
+    IF              reduce using rule 32 (statement -> WHILE LEFTPARENTHESES relExpr RIGHTPARENTHESES statBlock SEMICOLON .)
+    WHILE           reduce using rule 32 (statement -> WHILE LEFTPARENTHESES relExpr RIGHTPARENTHESES statBlock SEMICOLON .)
+    READ            reduce using rule 32 (statement -> WHILE LEFTPARENTHESES relExpr RIGHTPARENTHESES statBlock SEMICOLON .)
+    WRITE           reduce using rule 32 (statement -> WHILE LEFTPARENTHESES relExpr RIGHTPARENTHESES statBlock SEMICOLON .)
+    RETURN          reduce using rule 32 (statement -> WHILE LEFTPARENTHESES relExpr RIGHTPARENTHESES statBlock SEMICOLON .)
+    ID              reduce using rule 32 (statement -> WHILE LEFTPARENTHESES relExpr RIGHTPARENTHESES statBlock SEMICOLON .)
+    RIGHTBRACKET    reduce using rule 32 (statement -> WHILE LEFTPARENTHESES relExpr RIGHTPARENTHESES statBlock SEMICOLON .)
+    SEMICOLON       reduce using rule 32 (statement -> WHILE LEFTPARENTHESES relExpr RIGHTPARENTHESES statBlock SEMICOLON .)
+    ELSE            reduce using rule 32 (statement -> WHILE LEFTPARENTHESES relExpr RIGHTPARENTHESES statBlock SEMICOLON .)
+    RIGHTBRACE      reduce using rule 32 (statement -> WHILE LEFTPARENTHESES relExpr RIGHTPARENTHESES statBlock SEMICOLON .)
+
+
+state 182
+
+    (38) statBlock -> LEFTBRACE statementArr . RIGHTBRACE
+
+    RIGHTBRACE      shift and go to state 194
+
+
+state 183
+
+    (40) statementArr -> statement . statementArr
+    (40) statementArr -> . statement statementArr
+    (41) statementArr -> .
+    (30) statement -> . assignStat SEMICOLON
+    (31) statement -> . IF LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN statBlock ELSE statBlock SEMICOLON
+    (32) statement -> . WHILE LEFTPARENTHESES relExpr RIGHTPARENTHESES statBlock SEMICOLON
+    (33) statement -> . READ LEFTPARENTHESES variable RIGHTPARENTHESES SEMICOLON
+    (34) statement -> . WRITE LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON
+    (35) statement -> . RETURN LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON
+    (36) statement -> . functionCall SEMICOLON
+    (37) assignStat -> . variable ASSIGN expr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (58) variable -> . idnestArr ID indiceArr
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    RIGHTBRACE      reduce using rule 41 (statementArr -> .)
+    IF              shift and go to state 21
+    WHILE           shift and go to state 22
+    READ            shift and go to state 23
+    WRITE           shift and go to state 25
+    RETURN          shift and go to state 26
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    statement                      shift and go to state 183
+    statementArr                   shift and go to state 195
+    assignStat                     shift and go to state 20
+    variable                       shift and go to state 24
+    functionCall                   shift and go to state 27
+    idnestArr                      shift and go to state 28
+    idnest                         shift and go to state 29
+
+state 184
+
+    (67) fParams -> ID COLON type arraySizeArr . fParamsTailArr
+    (69) fParamsTailArr -> . fParamsTail fParamsTailArr
+    (70) fParamsTailArr -> .
+    (99) fParamsTail -> . COMMA ID COLON type arraySizeArr fParamsTail
+    (100) fParamsTail -> .
+
+  ! shift/reduce conflict for COMMA resolved as shift
+  ! reduce/reduce conflict for RIGHTPARENTHESES resolved using rule 70 (fParamsTailArr -> .)
+    RIGHTPARENTHESES reduce using rule 70 (fParamsTailArr -> .)
+    COMMA           shift and go to state 198
+
+  ! COMMA           [ reduce using rule 100 (fParamsTail -> .) ]
+  ! RIGHTPARENTHESES [ reduce using rule 100 (fParamsTail -> .) ]
+
+    fParamsTailArr                 shift and go to state 196
+    fParamsTail                    shift and go to state 197
+
+state 185
+
+    (19) funcHead -> FUNCTION idsrArr ID LEFTPARENTHESES fParams RIGHTPARENTHESES ARROW returnType .
+
+    LEFTBRACKET     reduce using rule 19 (funcHead -> FUNCTION idsrArr ID LEFTPARENTHESES fParams RIGHTPARENTHESES ARROW returnType .)
+
+
+state 186
+
+    (65) returnType -> type .
+
+    LEFTBRACKET     reduce using rule 65 (returnType -> type .)
+    SEMICOLON       reduce using rule 65 (returnType -> type .)
+
+
+state 187
+
+    (66) returnType -> VOID .
+
+    LEFTBRACKET     reduce using rule 66 (returnType -> VOID .)
+    SEMICOLON       reduce using rule 66 (returnType -> VOID .)
+
+
+state 188
+
+    (13) memberFuncDecl -> FUNCTION ID COLON LEFTPARENTHESES fParams . RIGHTPARENTHESES ARROW returnType SEMICOLON
+
+    RIGHTPARENTHESES shift and go to state 199
+
+
+state 189
+
+    (14) memberFuncDecl -> CONSTRUCTOR COLON LEFTPARENTHESES fParams RIGHTPARENTHESES . SEMICOLON
+
+    SEMICOLON       shift and go to state 200
+
+
+state 190
+
+    (15) memberVarDecl -> ATTRIBUTE ID COLON type arraySizeArr . SEMICOLON
+
+    SEMICOLON       shift and go to state 201
+
+
+state 191
+
+    (29) localVarDecl -> LOCALVAR ID COLON type LEFTPARENTHESES aParams RIGHTPARENTHESES . SEMICOLON
+
+    SEMICOLON       shift and go to state 202
+
+
+state 192
+
+    (90) arraySize -> LEFTBRACE INTLIT RIGHTBRACE .
+
+    LEFTBRACE       reduce using rule 90 (arraySize -> LEFTBRACE INTLIT RIGHTBRACE .)
+    SEMICOLON       reduce using rule 90 (arraySize -> LEFTBRACE INTLIT RIGHTBRACE .)
+    COMMA           reduce using rule 90 (arraySize -> LEFTBRACE INTLIT RIGHTBRACE .)
+    RIGHTPARENTHESES reduce using rule 90 (arraySize -> LEFTBRACE INTLIT RIGHTBRACE .)
+
+
+state 193
+
+    (31) statement -> IF LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN statBlock ELSE . statBlock SEMICOLON
+    (38) statBlock -> . LEFTBRACE statementArr RIGHTBRACE
+    (39) statBlock -> . statement
+    (30) statement -> . assignStat SEMICOLON
+    (31) statement -> . IF LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN statBlock ELSE statBlock SEMICOLON
+    (32) statement -> . WHILE LEFTPARENTHESES relExpr RIGHTPARENTHESES statBlock SEMICOLON
+    (33) statement -> . READ LEFTPARENTHESES variable RIGHTPARENTHESES SEMICOLON
+    (34) statement -> . WRITE LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON
+    (35) statement -> . RETURN LEFTPARENTHESES expr RIGHTPARENTHESES SEMICOLON
+    (36) statement -> . functionCall SEMICOLON
+    (37) assignStat -> . variable ASSIGN expr
+    (63) functionCall -> . idnestArr ID LEFTPARENTHESES aParams RIGHTPARENTHESES
+    (58) variable -> . idnestArr ID indiceArr
+    (59) idnestArr -> . idnest indiceArr
+    (60) idnestArr -> .
+    (94) idnest -> . ID idnestTail
+
+  ! shift/reduce conflict for ID resolved as shift
+    LEFTBRACE       shift and go to state 161
+    IF              shift and go to state 21
+    WHILE           shift and go to state 22
+    READ            shift and go to state 23
+    WRITE           shift and go to state 25
+    RETURN          shift and go to state 26
+    ID              shift and go to state 19
+
+  ! ID              [ reduce using rule 60 (idnestArr -> .) ]
+
+    statBlock                      shift and go to state 203
+    statement                      shift and go to state 162
+    assignStat                     shift and go to state 20
+    variable                       shift and go to state 24
+    functionCall                   shift and go to state 27
+    idnestArr                      shift and go to state 28
+    idnest                         shift and go to state 29
+
+state 194
+
+    (38) statBlock -> LEFTBRACE statementArr RIGHTBRACE .
+
+    SEMICOLON       reduce using rule 38 (statBlock -> LEFTBRACE statementArr RIGHTBRACE .)
+    ELSE            reduce using rule 38 (statBlock -> LEFTBRACE statementArr RIGHTBRACE .)
+
+
+state 195
+
+    (40) statementArr -> statement statementArr .
+
+    RIGHTBRACE      reduce using rule 40 (statementArr -> statement statementArr .)
+
+
+state 196
+
+    (67) fParams -> ID COLON type arraySizeArr fParamsTailArr .
+
+    RIGHTPARENTHESES reduce using rule 67 (fParams -> ID COLON type arraySizeArr fParamsTailArr .)
+
+
+state 197
+
+    (69) fParamsTailArr -> fParamsTail . fParamsTailArr
+    (69) fParamsTailArr -> . fParamsTail fParamsTailArr
+    (70) fParamsTailArr -> .
+    (99) fParamsTail -> . COMMA ID COLON type arraySizeArr fParamsTail
+    (100) fParamsTail -> .
+
+  ! shift/reduce conflict for COMMA resolved as shift
+  ! reduce/reduce conflict for RIGHTPARENTHESES resolved using rule 70 (fParamsTailArr -> .)
+    RIGHTPARENTHESES reduce using rule 70 (fParamsTailArr -> .)
+    COMMA           shift and go to state 198
+
+  ! COMMA           [ reduce using rule 100 (fParamsTail -> .) ]
+  ! RIGHTPARENTHESES [ reduce using rule 100 (fParamsTail -> .) ]
+
+    fParamsTail                    shift and go to state 197
+    fParamsTailArr                 shift and go to state 204
+
+state 198
+
+    (99) fParamsTail -> COMMA . ID COLON type arraySizeArr fParamsTail
+
+    ID              shift and go to state 205
+
+
+state 199
+
+    (13) memberFuncDecl -> FUNCTION ID COLON LEFTPARENTHESES fParams RIGHTPARENTHESES . ARROW returnType SEMICOLON
+
+    ARROW           shift and go to state 206
+
+
+state 200
+
+    (14) memberFuncDecl -> CONSTRUCTOR COLON LEFTPARENTHESES fParams RIGHTPARENTHESES SEMICOLON .
+
+    PUBLIC          reduce using rule 14 (memberFuncDecl -> CONSTRUCTOR COLON LEFTPARENTHESES fParams RIGHTPARENTHESES SEMICOLON .)
+    PRIVATE         reduce using rule 14 (memberFuncDecl -> CONSTRUCTOR COLON LEFTPARENTHESES fParams RIGHTPARENTHESES SEMICOLON .)
+    FUNCTION        reduce using rule 14 (memberFuncDecl -> CONSTRUCTOR COLON LEFTPARENTHESES fParams RIGHTPARENTHESES SEMICOLON .)
+    CONSTRUCTOR     reduce using rule 14 (memberFuncDecl -> CONSTRUCTOR COLON LEFTPARENTHESES fParams RIGHTPARENTHESES SEMICOLON .)
+    ATTRIBUTE       reduce using rule 14 (memberFuncDecl -> CONSTRUCTOR COLON LEFTPARENTHESES fParams RIGHTPARENTHESES SEMICOLON .)
+    RIGHTBRACE      reduce using rule 14 (memberFuncDecl -> CONSTRUCTOR COLON LEFTPARENTHESES fParams RIGHTPARENTHESES SEMICOLON .)
+
+
+state 201
+
+    (15) memberVarDecl -> ATTRIBUTE ID COLON type arraySizeArr SEMICOLON .
+
+    PUBLIC          reduce using rule 15 (memberVarDecl -> ATTRIBUTE ID COLON type arraySizeArr SEMICOLON .)
+    PRIVATE         reduce using rule 15 (memberVarDecl -> ATTRIBUTE ID COLON type arraySizeArr SEMICOLON .)
+    FUNCTION        reduce using rule 15 (memberVarDecl -> ATTRIBUTE ID COLON type arraySizeArr SEMICOLON .)
+    CONSTRUCTOR     reduce using rule 15 (memberVarDecl -> ATTRIBUTE ID COLON type arraySizeArr SEMICOLON .)
+    ATTRIBUTE       reduce using rule 15 (memberVarDecl -> ATTRIBUTE ID COLON type arraySizeArr SEMICOLON .)
+    RIGHTBRACE      reduce using rule 15 (memberVarDecl -> ATTRIBUTE ID COLON type arraySizeArr SEMICOLON .)
+
+
+state 202
+
+    (29) localVarDecl -> LOCALVAR ID COLON type LEFTPARENTHESES aParams RIGHTPARENTHESES SEMICOLON .
+
+    LOCALVAR        reduce using rule 29 (localVarDecl -> LOCALVAR ID COLON type LEFTPARENTHESES aParams RIGHTPARENTHESES SEMICOLON .)
+    IF              reduce using rule 29 (localVarDecl -> LOCALVAR ID COLON type LEFTPARENTHESES aParams RIGHTPARENTHESES SEMICOLON .)
+    WHILE           reduce using rule 29 (localVarDecl -> LOCALVAR ID COLON type LEFTPARENTHESES aParams RIGHTPARENTHESES SEMICOLON .)
+    READ            reduce using rule 29 (localVarDecl -> LOCALVAR ID COLON type LEFTPARENTHESES aParams RIGHTPARENTHESES SEMICOLON .)
+    WRITE           reduce using rule 29 (localVarDecl -> LOCALVAR ID COLON type LEFTPARENTHESES aParams RIGHTPARENTHESES SEMICOLON .)
+    RETURN          reduce using rule 29 (localVarDecl -> LOCALVAR ID COLON type LEFTPARENTHESES aParams RIGHTPARENTHESES SEMICOLON .)
+    ID              reduce using rule 29 (localVarDecl -> LOCALVAR ID COLON type LEFTPARENTHESES aParams RIGHTPARENTHESES SEMICOLON .)
+    RIGHTBRACKET    reduce using rule 29 (localVarDecl -> LOCALVAR ID COLON type LEFTPARENTHESES aParams RIGHTPARENTHESES SEMICOLON .)
+
+
+state 203
+
+    (31) statement -> IF LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN statBlock ELSE statBlock . SEMICOLON
+
+    SEMICOLON       shift and go to state 207
+
+
+state 204
+
+    (69) fParamsTailArr -> fParamsTail fParamsTailArr .
+
+    RIGHTPARENTHESES reduce using rule 69 (fParamsTailArr -> fParamsTail fParamsTailArr .)
+
+
+state 205
+
+    (99) fParamsTail -> COMMA ID . COLON type arraySizeArr fParamsTail
+
+    COLON           shift and go to state 208
+
+
+state 206
+
+    (13) memberFuncDecl -> FUNCTION ID COLON LEFTPARENTHESES fParams RIGHTPARENTHESES ARROW . returnType SEMICOLON
+    (65) returnType -> . type
+    (66) returnType -> . VOID
+    (87) type -> . INTEGER
+    (88) type -> . FLOAT
+    (89) type -> . ID
+
+    VOID            shift and go to state 187
+    INTEGER         shift and go to state 107
+    FLOAT           shift and go to state 108
+    ID              shift and go to state 105
+
+    returnType                     shift and go to state 209
+    type                           shift and go to state 186
+
+state 207
+
+    (31) statement -> IF LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN statBlock ELSE statBlock SEMICOLON .
+
+    LOCALVAR        reduce using rule 31 (statement -> IF LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN statBlock ELSE statBlock SEMICOLON .)
+    IF              reduce using rule 31 (statement -> IF LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN statBlock ELSE statBlock SEMICOLON .)
+    WHILE           reduce using rule 31 (statement -> IF LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN statBlock ELSE statBlock SEMICOLON .)
+    READ            reduce using rule 31 (statement -> IF LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN statBlock ELSE statBlock SEMICOLON .)
+    WRITE           reduce using rule 31 (statement -> IF LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN statBlock ELSE statBlock SEMICOLON .)
+    RETURN          reduce using rule 31 (statement -> IF LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN statBlock ELSE statBlock SEMICOLON .)
+    ID              reduce using rule 31 (statement -> IF LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN statBlock ELSE statBlock SEMICOLON .)
+    RIGHTBRACKET    reduce using rule 31 (statement -> IF LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN statBlock ELSE statBlock SEMICOLON .)
+    SEMICOLON       reduce using rule 31 (statement -> IF LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN statBlock ELSE statBlock SEMICOLON .)
+    ELSE            reduce using rule 31 (statement -> IF LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN statBlock ELSE statBlock SEMICOLON .)
+    RIGHTBRACE      reduce using rule 31 (statement -> IF LEFTPARENTHESES relExpr RIGHTPARENTHESES THEN statBlock ELSE statBlock SEMICOLON .)
+
+
+state 208
+
+    (99) fParamsTail -> COMMA ID COLON . type arraySizeArr fParamsTail
+    (87) type -> . INTEGER
+    (88) type -> . FLOAT
+    (89) type -> . ID
+
+    INTEGER         shift and go to state 107
+    FLOAT           shift and go to state 108
+    ID              shift and go to state 105
+
+    type                           shift and go to state 210
+
+state 209
+
+    (13) memberFuncDecl -> FUNCTION ID COLON LEFTPARENTHESES fParams RIGHTPARENTHESES ARROW returnType . SEMICOLON
+
+    SEMICOLON       shift and go to state 211
+
+
+state 210
+
+    (99) fParamsTail -> COMMA ID COLON type . arraySizeArr fParamsTail
+    (16) arraySizeArr -> . arraySize arraySizeArr
+    (17) arraySizeArr -> .
+    (90) arraySize -> . LEFTBRACE INTLIT RIGHTBRACE
+    (91) arraySize -> . LEFTBRACE RIGHTBRACE
+
+    COMMA           reduce using rule 17 (arraySizeArr -> .)
+    RIGHTPARENTHESES reduce using rule 17 (arraySizeArr -> .)
+    LEFTBRACE       shift and go to state 151
+
+    arraySizeArr                   shift and go to state 212
+    arraySize                      shift and go to state 150
+
+state 211
+
+    (13) memberFuncDecl -> FUNCTION ID COLON LEFTPARENTHESES fParams RIGHTPARENTHESES ARROW returnType SEMICOLON .
+
+    PUBLIC          reduce using rule 13 (memberFuncDecl -> FUNCTION ID COLON LEFTPARENTHESES fParams RIGHTPARENTHESES ARROW returnType SEMICOLON .)
+    PRIVATE         reduce using rule 13 (memberFuncDecl -> FUNCTION ID COLON LEFTPARENTHESES fParams RIGHTPARENTHESES ARROW returnType SEMICOLON .)
+    FUNCTION        reduce using rule 13 (memberFuncDecl -> FUNCTION ID COLON LEFTPARENTHESES fParams RIGHTPARENTHESES ARROW returnType SEMICOLON .)
+    CONSTRUCTOR     reduce using rule 13 (memberFuncDecl -> FUNCTION ID COLON LEFTPARENTHESES fParams RIGHTPARENTHESES ARROW returnType SEMICOLON .)
+    ATTRIBUTE       reduce using rule 13 (memberFuncDecl -> FUNCTION ID COLON LEFTPARENTHESES fParams RIGHTPARENTHESES ARROW returnType SEMICOLON .)
+    RIGHTBRACE      reduce using rule 13 (memberFuncDecl -> FUNCTION ID COLON LEFTPARENTHESES fParams RIGHTPARENTHESES ARROW returnType SEMICOLON .)
+
+
+state 212
+
+    (99) fParamsTail -> COMMA ID COLON type arraySizeArr . fParamsTail
+    (99) fParamsTail -> . COMMA ID COLON type arraySizeArr fParamsTail
+    (100) fParamsTail -> .
+
+  ! shift/reduce conflict for COMMA resolved as shift
+    COMMA           shift and go to state 198
+    RIGHTPARENTHESES reduce using rule 100 (fParamsTail -> .)
+
+  ! COMMA           [ reduce using rule 100 (fParamsTail -> .) ]
+
+    fParamsTail                    shift and go to state 213
+
+state 213
+
+    (99) fParamsTail -> COMMA ID COLON type arraySizeArr fParamsTail .
+
+    COMMA           reduce using rule 99 (fParamsTail -> COMMA ID COLON type arraySizeArr fParamsTail .)
+    RIGHTPARENTHESES reduce using rule 99 (fParamsTail -> COMMA ID COLON type arraySizeArr fParamsTail .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for ID in state 7 resolved as shift
+WARNING: shift/reduce conflict for ID in state 10 resolved as shift
+WARNING: shift/reduce conflict for ID in state 15 resolved as shift
+WARNING: shift/reduce conflict for LEFTBRACE in state 19 resolved as shift
+WARNING: shift/reduce conflict for ID in state 31 resolved as shift
+WARNING: shift/reduce conflict for ID in state 41 resolved as shift
+WARNING: shift/reduce conflict for ID in state 42 resolved as shift
+WARNING: shift/reduce conflict for ID in state 45 resolved as shift
+WARNING: shift/reduce conflict for ID in state 46 resolved as shift
+WARNING: shift/reduce conflict for ID in state 47 resolved as shift
+WARNING: shift/reduce conflict for ID in state 48 resolved as shift
+WARNING: shift/reduce conflict for ID in state 49 resolved as shift
+WARNING: shift/reduce conflict for ID in state 50 resolved as shift
+WARNING: shift/reduce conflict for ID in state 55 resolved as shift
+WARNING: shift/reduce conflict for ADD in state 70 resolved as shift
+WARNING: shift/reduce conflict for SUB in state 70 resolved as shift
+WARNING: shift/reduce conflict for ID in state 76 resolved as shift
+WARNING: shift/reduce conflict for ID in state 77 resolved as shift
+WARNING: shift/reduce conflict for ID in state 78 resolved as shift
+WARNING: shift/reduce conflict for ID in state 83 resolved as shift
+WARNING: shift/reduce conflict for ID in state 94 resolved as shift
+WARNING: shift/reduce conflict for ID in state 100 resolved as shift
+WARNING: shift/reduce conflict for LEFTBRACE in state 109 resolved as shift
+WARNING: shift/reduce conflict for ID in state 111 resolved as shift
+WARNING: shift/reduce conflict for ID in state 116 resolved as shift
+WARNING: shift/reduce conflict for LEFTPARENTHESES in state 123 resolved as shift
+WARNING: shift/reduce conflict for LEFTBRACE in state 124 resolved as shift
+WARNING: shift/reduce conflict for ID in state 125 resolved as shift
+WARNING: shift/reduce conflict for ID in state 127 resolved as shift
+WARNING: shift/reduce conflict for ID in state 135 resolved as shift
+WARNING: shift/reduce conflict for ID in state 149 resolved as shift
+WARNING: shift/reduce conflict for ADD in state 153 resolved as shift
+WARNING: shift/reduce conflict for SUB in state 153 resolved as shift
+WARNING: shift/reduce conflict for ID in state 159 resolved as shift
+WARNING: shift/reduce conflict for ID in state 161 resolved as shift
+WARNING: shift/reduce conflict for ID in state 183 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 184 resolved as shift
+WARNING: shift/reduce conflict for ID in state 193 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 197 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 212 resolved as shift
+WARNING: reduce/reduce conflict in state 184 resolved using rule (fParamsTailArr -> <empty>)
+WARNING: rejected rule (fParamsTail -> <empty>) in state 184
+WARNING: reduce/reduce conflict in state 197 resolved using rule (fParamsTailArr -> <empty>)
+WARNING: rejected rule (fParamsTail -> <empty>) in state 197

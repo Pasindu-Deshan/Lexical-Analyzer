@@ -1,0 +1,10 @@
+value = 10;
+If(value > 0)
+then
+{
+    result = value + 10;
+}
+else
+{
+    result = value - 5;
+}

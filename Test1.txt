@@ -1,0 +1,6 @@
+#integer x = 100;
+while (x < 10)
+{
+    write(x);
+    x = x - 10.5;
+}
